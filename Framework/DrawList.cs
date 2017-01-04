@@ -11,11 +11,10 @@ namespace Framework
         private int cursor;
         private List<Draw> draws;
 
-        public DrawList(string fileContent)
+        public DrawList(List<Draw> fileContent)
         {
-            draws = new List<Draw>();
+            draws = fileContent;
             cursor = -1;
-            throw new NotImplementedException();
         }
 
         public Draw GetNext()

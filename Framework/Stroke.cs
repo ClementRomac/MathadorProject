@@ -8,21 +8,21 @@ namespace Framework
 {
     public class Stroke
     {
-        public int FirstNumber { get; private set; }
-        public int SecondNumber { get; private set; }
+        public int FirstOperand { get; private set; }
+        public int SecondOperand { get; private set; }
         public int Result {
             get
             {
                 switch (Operator)
                 {
                     case MathadorOperators.Addition:
-                        return FirstNumber + SecondNumber;
+                        return FirstOperand + SecondOperand;
                     case MathadorOperators.Substraction:
-                        return FirstNumber - SecondNumber;
+                        return FirstOperand - SecondOperand;
                     case MathadorOperators.Multiplication:
-                        return FirstNumber * SecondNumber;
+                        return FirstOperand * SecondOperand;
                     case MathadorOperators.Division:
-                        return FirstNumber / SecondNumber;
+                        return FirstOperand / SecondOperand;
                     default:
                         return 0;
                 }
@@ -31,9 +31,23 @@ namespace Framework
 
         public MathadorOperators Operator { get; private set; }
 
-        public Stroke(int firstNumber, int secondNumber, string mathadorOperator)
+        public Stroke(int firstOperand, int secondOperand, string mathadorOperator)
         {
-            throw new NotImplementedException();
+            FirstOperand = firstOperand;
+            SecondOperand = secondOperand;
+            try
+            {
+                Operator = mathadorOperator.ToOperator();
+            }
+            catch(Exception ex)
+            {
+                throw new Exception();
+            }
+        }
+
+        public int GetPoints()
+        {
+            return Operator.GetPoints();
         }
     }
 }

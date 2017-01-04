@@ -8,20 +8,35 @@ namespace Framework
 {
     public abstract class Game
     {
-        private Dictionary<Draw, List<Stroke>> historical;
-        public Game()
+        public List<DrawResolution> Historical { get; private set; }
+        private DrawResolution currentDraw;
+        public string Pseudo { get; private set; }
+        public Game(string pseudo)
         {
-            historical = new Dictionary<Draw, List<Stroke>>();
+            Historical = new List<DrawResolution>();
+            Pseudo = pseudo;
         }
 
-        public void AddDraw(Draw draw)
+        public void AddDrawResolution(Draw draw)
         {
-            historical.Add(draw, new List<Stroke>());
+            currentDraw = new DrawResolution(draw);
+            Historical.Add(currentDraw);
         }
 
-        public void AddStroke(Draw draw, Stroke stroke)
+        public void AddStroke(Stroke stroke)
         {
-            throw new NotImplementedException();
+            if (!currentDraw.IsFinished())
+            {
+                currentDraw.AddStroke(stroke);
+            }
+        }
+
+        public int GetTotalPoints()
+        {
+            int points = 0;
+            Historical.ForEach(d => points += d.GetCurrentPoints());
+
+            return points;
         }
     }
 }
