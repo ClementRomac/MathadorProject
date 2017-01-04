@@ -1,4 +1,4 @@
-﻿+ using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,9 +14,12 @@ namespace Framework
             private set;
         }
 
-        public Draw(List<int> numbers)
+        public int Goal { get; private set; }
+
+        public Draw(List<int> numbers, int goal)
         {
             Numbers = numbers;
+            Goal = goal;
         }
 
         public List<Stroke> GetSolution()

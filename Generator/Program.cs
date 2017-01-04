@@ -10,6 +10,7 @@ namespace Generator
     {
         static void Main(string[] args)
         {
+            DrawGenerator test = new DrawGenerator(3);
         }
     }
 }
