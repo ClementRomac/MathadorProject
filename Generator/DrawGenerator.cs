@@ -13,7 +13,7 @@ namespace Generator
     public class DrawGenerator
     {
         private static Random random = new Random();
-        public DrawGenerator(int max)
+        public DrawGenerator(int max, string path)
         {
             List<Draw> generatedDraws = new List<Draw>();
             for (int i = 0; i < max; i++)
@@ -22,7 +22,7 @@ namespace Generator
                 generatedDraws.Add(tmp);
             }
 
-            WriteResults(generatedDraws);
+            WriteResults(generatedDraws, path);
         }
 
         private Draw Generate()
@@ -45,15 +45,23 @@ namespace Generator
             return generatedDraw;
         }
 
-        private void WriteResults(List<Draw> generatedDraws)
+        private void WriteResults(List<Draw> generatedDraws, string path)
         {
             JsonSerializer serializer = new JsonSerializer();
 
-            using (StreamWriter sw = new StreamWriter(@"..\..\..\json.txt"))
-            using (JsonWriter writer = new JsonTextWriter(sw))
+            try
             {
-                serializer.Serialize(writer, generatedDraws);
+                using (StreamWriter sw = new StreamWriter(@path + "json.txt"))
+                using (JsonWriter writer = new JsonTextWriter(sw))
+                {
+                    serializer.Serialize(writer, generatedDraws);
+                }
             }
+            catch(Exception ex)
+            {
+                throw ex;
+            }
+            
         }
     }
 }
