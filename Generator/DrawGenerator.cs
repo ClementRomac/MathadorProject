@@ -51,7 +51,7 @@ namespace Generator
 
             try
             {
-                using (StreamWriter sw = new StreamWriter(@path + "json.txt"))
+                using (StreamWriter sw = new StreamWriter(@path + GenerateName(generatedDraws.Count)))
                 using (JsonWriter writer = new JsonTextWriter(sw))
                 {
                     serializer.Serialize(writer, generatedDraws);
@@ -60,8 +60,23 @@ namespace Generator
             catch(Exception ex)
             {
                 throw ex;
-            }
-            
+            } 
+        }
+
+        private string GenerateName(int numberOfDraws)
+        {
+            DateTime date = DateTime.Now;
+            string name = string.Join("-", new string[] {
+                date.Year.ToString(),
+                date.Month.ToString(),
+                date.Day.ToString(),
+                date.Hour.ToString(),
+                date.Minute.ToString(),
+                date.Second.ToString(),
+                numberOfDraws.ToString()
+            });
+
+            return name + ".json";
         }
     }
 }
