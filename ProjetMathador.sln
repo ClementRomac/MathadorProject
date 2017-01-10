@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.23107.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "ProjetMathador\Game.csproj", "{1EB2E692-D52A-4534-977C-7434B301A170}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Generator", "Generator\Generator.csproj", "{0D3E3FE4-F603-492A-B96D-5AB028787299}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Framework", "Framework\Framework.csproj", "{B2DD082E-C8D4-4958-BD8C-F2B942B59AFA}"
@@ -13,16 +11,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Solver", "Solver\Solver.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DAO", "DAO\DAO.csproj", "{AEC68DF8-EE6D-4B68-ACA1-7AD1C443F1F9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Game", "Game\Game.csproj", "{7DF10F47-4A39-4A13-98A9-1B6631F79E9A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1EB2E692-D52A-4534-977C-7434B301A170}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1EB2E692-D52A-4534-977C-7434B301A170}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1EB2E692-D52A-4534-977C-7434B301A170}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1EB2E692-D52A-4534-977C-7434B301A170}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0D3E3FE4-F603-492A-B96D-5AB028787299}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0D3E3FE4-F603-492A-B96D-5AB028787299}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0D3E3FE4-F603-492A-B96D-5AB028787299}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -39,6 +35,10 @@ Global
 		{AEC68DF8-EE6D-4B68-ACA1-7AD1C443F1F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AEC68DF8-EE6D-4B68-ACA1-7AD1C443F1F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AEC68DF8-EE6D-4B68-ACA1-7AD1C443F1F9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7DF10F47-4A39-4A13-98A9-1B6631F79E9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7DF10F47-4A39-4A13-98A9-1B6631F79E9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7DF10F47-4A39-4A13-98A9-1B6631F79E9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7DF10F47-4A39-4A13-98A9-1B6631F79E9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

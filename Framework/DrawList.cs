@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace Framework
 {
+
     public class DrawList
     {
         private int cursor;
         private List<Draw> draws;
+
 
         public DrawList(List<Draw> fileContent)
         {

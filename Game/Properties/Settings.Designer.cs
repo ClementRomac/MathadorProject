@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ProjetMathador.Properties
+namespace Game.Properties
 {
 
 

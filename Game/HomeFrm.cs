@@ -8,11 +8,11 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace ProjetMathador
+namespace Game
 {
-    public partial class Form1 : Form
+    public partial class HomeFrm : Form
     {
-        public Form1()
+        public HomeFrm()
         {
             InitializeComponent();
         }

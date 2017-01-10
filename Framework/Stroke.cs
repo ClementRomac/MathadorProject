@@ -18,7 +18,8 @@ namespace Framework
                     case MathadorOperators.Addition:
                         return FirstOperand + SecondOperand;
                     case MathadorOperators.Substraction:
-                        return FirstOperand - SecondOperand;
+                        int tmp = FirstOperand - SecondOperand;
+                        return tmp < 0 ? 0 : tmp;
                     case MathadorOperators.Multiplication:
                         return FirstOperand * SecondOperand;
                     case MathadorOperators.Division:
