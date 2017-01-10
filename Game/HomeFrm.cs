@@ -12,9 +12,21 @@ namespace Game
 {
     public partial class HomeFrm : Form
     {
-        public HomeFrm()
+        private string pseudo;
+        public HomeFrm(string pseudo)
         {
+            this.pseudo = pseudo;
             InitializeComponent();
+            homePseudoLabel.Text = "Pseudo : " + pseudo;
+        }
+
+        private void loginButton_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

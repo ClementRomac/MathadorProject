@@ -57,5 +57,10 @@ namespace Framework
         {
             return usedOperators.Select(o => o.Value == 1).Count() == 4;
         }
+
+        private bool isGoalReached()
+        {
+            return Strokes.Any(s => s.Result == Draw.Goal);
+        }
     }
 }

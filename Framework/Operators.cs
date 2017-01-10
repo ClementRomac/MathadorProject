@@ -8,10 +8,10 @@ namespace Framework
 {
     public enum MathadorOperators
     {
-        Addition,
-        Substraction,
-        Multiplication,
-        Division
+        Addition = 0,
+        Substraction = 1,
+        Multiplication = 2,
+        Division = 3
     }
 
     public static class OperatorsExtension
