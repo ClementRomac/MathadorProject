@@ -14,9 +14,11 @@ namespace Solver
             List<List<int>> Allcase = SwapElementInList(draw.Numbers); //on recupere toutes les combinaisons possibles 
             foreach (List<int> oneCase in Allcase) // on les test toutes
             {
-                List<List<Stroke>> AllcaseResult = TestWithOperand(oneCase, draw.Goal);
-                 if ( AllcaseResult.Count()==9 ) return true; //si un desl éléments est composé de 9éléments,  alors on renvoie true car Mathador
+                List<DrawResolution> AllcaseResult = TestWithOperand(oneCase, draw.Goal);
+                 if ( AllcaseResult.Any( c => c.GetCurrentPoints() == 13 )) return true; //si un desl éléments est composé de 13 éléments,  alors on renvoie true car Mathador
+
             }
+            Console.WriteLine("false");
             return false;
         }
 
@@ -99,7 +101,7 @@ namespace Solver
         /// <param name="Tirage"></param>
         /// <param name="goal"></param>
         /// <returns></returns>
-        public static List<List<Stroke>> TestWithOperand(List<int> Tirage, int goal)
+        public static List<DrawResolution> TestWithOperand(List<int> Tirage, int goal)
         {
             List<DrawResolution> SolutionOfGame = new List<DrawResolution>();
             
@@ -114,42 +116,69 @@ namespace Solver
                         for (int l = 0; l < 4; l++)
                         {
                             if (i == k || j == k) continue;
-                            DrawResolution solution = new DrawResolution(new Draw(Tirage, goal));
-                            //List<Stroke> solution = new List<Stroke>();
-                           try
-                            {
 
-                                Stroke stroke0 = new Stroke(Tirage[0], Tirage[1], ((MathadorOperators)i).ToReadableString());
-                                solution.AddStroke(stroke0);
-                                if (solution.IsGoalReached())
-                                {
-                                    SolutionOfGame.Add(solution);
-                                }
-                                Stroke stroke1 = new Stroke(stroke0.Result, Tirage[2], ((MathadorOperators)j).ToReadableString());
-                                solution.AddStroke(stroke1);
-                                if (solution.IsGoalReached())
-                                {
-                                    SolutionOfGame.Add(solution);
-                                }
-                                Stroke stroke2 = new Stroke(stroke1.Result, Tirage[3], ((MathadorOperators)k).ToReadableString());
-                                solution.AddStroke(stroke2);
-                                Stroke stroke3 = new Stroke(stroke2.Result, Tirage[4], ((MathadorOperators)l).ToReadableString());
-                                solution.AddStroke(stroke3);
-                            }
-                            catch(Exception e)
-                            {
-                                continue;
-                            }
+                            /*   Console.WriteLine(Tirage[0].ToString() +
+                                            ((MathadorOperators)i).ToReadableString() +
+                                            Tirage[1].ToString() +
+                                            ((MathadorOperators)j).ToReadableString() +
+                                            Tirage[2].ToString() +
+                                            ((MathadorOperators)k).ToReadableString() +
+                                            Tirage[3].ToString() +
+                                            ((MathadorOperators)l).ToReadableString() +
+                                             Tirage[4].ToString()
+                                            );*/
+                            List<DrawResolution> solution = new List<DrawResolution>();
+                            solution = TestOperandWithPriority(Tirage[0],
+                                           ((MathadorOperators)i).ToString(),
+                                           Tirage[1],
+                                           ((MathadorOperators)j).ToString(),
+                                           Tirage[2],
+                                           ((MathadorOperators)k).ToString(),
+                                           Tirage[3],
+                                           ((MathadorOperators)l).ToString(),
+                                            Tirage[4]
+                                           );
+
                         }
                     }
                 }
             }
 
-            return SolutionOfMatador;
+            return SolutionOfGame;
+        }
+        /// <summary>
+        /// cette méthoe prend en entier un ordre bien précis de calcul : a 1 b 2 c 3 d 4 e , ou lettres sont des entiers et chiffres des operators
+        /// L'objectif de cette méthode est de tester en fonction des priorités d'opétations si le résultat est atteint, si il l'est alors on ajoute la combinaison à la solution
+        /// on cjeckera plus tard si un enchainement de type matador est atteint
+        /// </summary>
+        /// <param name="operator1"></param>
+        /// <param name="operator2"></param>
+        /// <param name="operator3"></param>
+        /// <param name="operator4"></param>
+        /// <param name="operand1"></param>
+        /// <param name="operand2"></param>
+        /// <param name="operand3"></param>
+        /// <param name="operand4"></param>
+        /// <param name="operand5"></param>
+        /// <returns></returns>
+        public static List<DrawResolution> TestOperandWithPriority(int operand1 , string operator1, int operand2, string operator2, int operand3, string operator3, int operand4, string operator4, int operand5)
+        {
+
+
+            // TODO : écrire arbre
+
+            /*
+            Stroke stroke0 = new Stroke(Tirage[0], Tirage[1], ((MathadorOperators)i).ToReadableString());
+            solution.AddStroke(stroke0);
+            if (solution.IsGoalReached())
+            {
+                SolutionOfGame.Add(solution);
+            }*/
+
+            return null;
         }
 
-       
-       
+
 
 
         public static List<List<Stroke>> FindSolutions(Draw draw)
