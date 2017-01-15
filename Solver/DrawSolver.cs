@@ -161,19 +161,61 @@ namespace Solver
         /// <param name="operand4"></param>
         /// <param name="operand5"></param>
         /// <returns></returns>
-        public static List<DrawResolution> TestOperandWithPriority(int operand1 , string operator1, int operand2, string operator2, int operand3, string operator3, int operand4, string operator4, int operand5)
+        public static List<DrawResolution> TestOperandWithPriority(int operanda , string operator1, int operandb, string operator2, int operandc, string operator3, int operandd,  string operator4, int operande)
         {
 
 
             // TODO : écrire arbre
 
+            Stroke strokeB = new Stroke(operanda,operandb, operator1);
+
+            // chemin c-d
+             
+            Stroke strokeD1 = new Stroke(operandc,operandd, operator3);
+                // chemin b-d
+                 strokeD1 = new Stroke(strokeB.Result, strokeD1.Result, operator2);
+                    //feuille d-e
+                    Stroke strokeE1 = new Stroke(strokeD1.Result, operande, operator4);
+                // chemin d-e
+                strokeE1 = new Stroke(strokeD1.Result, operande, operator4);
+                    //feuille b-e
+                    strokeE1 = new Stroke(strokeB.Result, operande, operator2);
+
+
+            // chemin b-c
+             Stroke strokeC2 = new Stroke(strokeB.Result,operandc, operator2);
+                // chemin d-e
+                 Stroke strokeE2 = new Stroke(operandd, operande, operator4);
+                    //feuille c-e
+                     strokeE2 = new Stroke(strokeC2.Result, operande, operator3);
+                // chemin c-d
+                Stroke strokeD2 = new Stroke(strokeC2.Result, operandd, operator3);
+                    //feuille d-e
+                    strokeE1 = new Stroke(strokeD2.Result, operande, operator4);
+
+
+            // chemin d-e
+             Stroke strokeE3 = new Stroke(operandd, operande, operator4);
+                // chemin b-c
+                 Stroke strokeC3 = new Stroke(strokeB.Result, operandc, operator2);
+                    //feuille c-e
+                     strokeE3 = new Stroke(strokeC3.Result, strokeE3.Result, operator3);
+                // chemin c-e
+                strokeE3 = new Stroke(strokeC3.Result, strokeE3.Result, operator3);
+                    //feuille b-e
+                    strokeE3 = new Stroke(strokeB.Result, strokeE3.Result, operator2);
+
+
+            //todo pour chaque stroke test si score atteint, si oui on les ajoute dans une liste solution que l'on retourne
             /*
-            Stroke stroke0 = new Stroke(Tirage[0], Tirage[1], ((MathadorOperators)i).ToReadableString());
+
             solution.AddStroke(stroke0);
             if (solution.IsGoalReached())
             {
                 SolutionOfGame.Add(solution);
-            }*/
+            }
+            */
+
 
             return null;
         }
