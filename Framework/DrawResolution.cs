@@ -12,7 +12,7 @@ namespace Framework
         public List<Stroke> Strokes { get; private set; }
 
         private Dictionary<MathadorOperators, int> usedOperators;
-        public int lastResult { get; private set; };
+        public int lastResult { get; private set; }
         public DrawResolution(Draw draw)
         {
             Draw = draw;
