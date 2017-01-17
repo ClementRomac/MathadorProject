@@ -32,5 +32,10 @@ namespace Framework
         {
             throw new NotImplementedException();
         }
+
+        public Draw Clone()
+        {
+            return new Draw(Numbers, Goal);
+        }
     }
 }
