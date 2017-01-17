@@ -9,7 +9,6 @@ namespace Solver
     public class Branch
     {
         DrawResolution Set;
-        Draw draw;
 
         public Branch(Stroke Stroke1, Stroke Stroke2, Stroke Stroke3, Stroke Stroke4, Draw draw)
         {
@@ -18,9 +17,16 @@ namespace Solver
             Set.AddStroke(Stroke2);
             Set.AddStroke(Stroke3);
             Set.AddStroke(Stroke4);
+            
 
-            this.draw = draw;
+
         }
+
+        public int GoalToReach()
+        {
+            return Set.Draw.Goal;
+        }
+
 
         public bool IsGoalReached()
         {
@@ -48,14 +54,27 @@ namespace Solver
         public List<Branch> Combinaisons { get; private set; }
         private Draw draw;
         
-        public Tree(Draw draw, int[] operators)
+        public Tree(Draw draw,List<int>drawNumbersSwapped, List<int> operators)
         {
-            int A = draw.Numbers[0];
-            int B = draw.Numbers[1];
-            int C = draw.Numbers[2];
-            int D = draw.Numbers[3];
-            int E = draw.Numbers[4];
-            this.Combinaisons = new List<Branch>();
+            int A = drawNumbersSwapped[0];
+            int B = drawNumbersSwapped[1];
+            int C = drawNumbersSwapped[2];
+            int D = drawNumbersSwapped[3];
+            int E = drawNumbersSwapped[4];
+
+            Console.Write(A.ToString());
+            Console.Write(B.ToString());
+            Console.Write(C.ToString());
+            Console.Write(D.ToString());
+            Console.Write(E.ToString());
+
+            Console.WriteLine();
+
+            if (A == 12 && B == 9 && C ==12 && D==9 && E ==7)
+            {
+                Console.WriteLine();
+            }
+                this.Combinaisons = new List<Branch>();
 
             Stroke AB = new Stroke(A, B, ((MathadorOperators)operators[0]).ToReadableChar());
             try

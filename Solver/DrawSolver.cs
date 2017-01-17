@@ -12,11 +12,21 @@ namespace Solver
         public static bool IsPossible(Draw draw)
         {
             List<List<int>> Allcase = SwapElementInList(draw.Numbers); //on recupere toutes les combinaisons possibles 
+            List<List<int>> AllcaseOperator = TestWithOperand();
             foreach (List<int> oneCase in Allcase) // on les test toutes
             {
-                List<DrawResolution> AllcaseResult = TestWithOperand(new Draw(oneCase, draw.Goal));
-                 if ( AllcaseResult.Any( c => c.GetCurrentPoints() == 13 )) return true; //si un desl éléments est composé de 13 éléments,  alors on renvoie true car Mathador
-
+                foreach (List<int> oneCaseOfOperand in AllcaseOperator)
+                {
+                    Tree iteration = new Tree(draw, oneCase, oneCaseOfOperand);
+                    List<Branch> mathadorBranchees = iteration.Combinaisons.Where(b => b.IsMathador()).ToList();
+                    //foreach (Branch branch in mathadorBranchees)
+                    //{
+                    //    SolutionOfGame.Add(branch.GetDrawResolution());
+                    //}
+                    if (mathadorBranchees.Any(c => c.GoalToReach() == draw.Goal)){
+                        return true;
+                    }
+                }
             }
             return false;
         }
@@ -46,16 +56,17 @@ namespace Solver
                             {
                                 if (i == m || j == m || k == m || l == m) continue;
                                 List<int> TirageSwapped = new List<int>();
-                                TirageSwapped.AddRange(new int[5] { i, j, k, l, m, }); // on remplace 0 1 2 3 4 5 par nos éléments réels de la liste
+                                TirageSwapped.AddRange(new int[5] { i, j, k, l, m, });
                                 Allcase.Add(TirageSwapped);
+
 
                             }
                         }
                     }
                 }
             }
-            
-            Allcase = ReplaceElement(Allcase, Tirage);
+
+            Allcase = ReplaceElement(Allcase, Tirage); // on remplace 0 1 2 3 4 5 par nos éléments réels de la liste
             return Allcase;
         }
         /// <summary>
@@ -73,6 +84,9 @@ namespace Solver
         {
             foreach (List<int> oneCase in Allcase) // Pour tous les tirages on remplace les value
             {
+
+
+
                 var i = oneCase.FindIndex(x => x == 0);
                 oneCase[i] = Tirage[0];
 
@@ -87,6 +101,7 @@ namespace Solver
 
                 var m = oneCase.FindIndex(x => x == 4);
                 oneCase[m] = Tirage[4];
+
             }
             return Allcase;
         }
@@ -99,10 +114,9 @@ namespace Solver
         /// <param name="Tirage"></param>
         /// <param name="goal"></param>
         /// <returns></returns>
-        public static List<DrawResolution> TestWithOperand(Draw draw)
+        public static List<List<int>> TestWithOperand(/*Draw draw*/)
         {
-            List<DrawResolution> SolutionOfGame = new List<DrawResolution>();
-            
+            List<List<int>> SolutionOfGame = new List<List<int>>();
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
@@ -113,15 +127,11 @@ namespace Solver
                         if (i == k || j == k) continue;
                         for (int l = 0; l < 4; l++)
                         {
-                            if (i == k || j == k) continue;
+                            if (i == l || j == l || k == l) continue;
+                            List<int> operators = new List<int>();
+                            operators.AddRange(new int[4] { i, j, k, l });
+                            SolutionOfGame.Add(operators);
 
-                            int[] operators = new int[] { i, j, k, l };
-                            Tree iteration = new Tree(draw, operators);
-                            List<Branch> mathadorBranchees = iteration.Combinaisons.Where(b => b.IsMathador()).ToList();
-                            foreach (Branch branch in mathadorBranchees)
-                            {
-                                SolutionOfGame.Add(branch.GetDrawResolution());
-                            }
                         }
                     }
                 }
@@ -144,7 +154,7 @@ namespace Solver
         /// <param name="operand4"></param>
         /// <param name="operand5"></param>
         /// <returns></returns>
-      
+
         public static List<List<Stroke>> FindSolutions(Draw draw)
         {
             List<int> Tirage = new List<int>();
@@ -167,4 +177,4 @@ namespace Solver
 }
 
 
-  
+
