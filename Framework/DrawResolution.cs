@@ -57,7 +57,7 @@ namespace Framework
 
         private bool IsMathadorPlay()
         {
-            return usedOperators.Where(o => o.Value == 1).Count() == 4;
+            return usedOperators.Where(o => o.Value == 1).Count() == 4 && IsGoalReached();
         }
 
         public bool IsGoalReached()
