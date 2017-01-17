@@ -14,6 +14,12 @@ namespace Framework
             private set;
         }
 
+        public int this[int i]
+        {
+            get { return Numbers[i]; }
+            set { Numbers[i] = value; }
+        }
+
         public int Goal { get; private set; }
 
         public Draw(List<int> numbers, int goal)

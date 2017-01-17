@@ -163,19 +163,19 @@ namespace Solver
         /// <returns></returns>
         public static List<DrawResolution> TestOperandWithPriority(int operanda , string operator1, int operandb, string operator2, int operandc, string operator3, int operandd,  string operator4, int operande)
         {
-
-
+            
             // TODO : écrire arbre
+
+                
 
             Stroke strokeB = new Stroke(operanda,operandb, operator1);
 
-            // chemin c-d
-             
+            // chemin c-d             
             Stroke strokeD1 = new Stroke(operandc,operandd, operator3);
                 // chemin b-d
-                 strokeD1 = new Stroke(strokeB.Result, strokeD1.Result, operator2);
+                 Stroke strokeD1N2 = new Stroke(strokeB.Result, strokeD1.Result, operator2);
                     //feuille d-e
-                    Stroke strokeE1 = new Stroke(strokeD1.Result, operande, operator4);
+                    Stroke strokeE1 = new Stroke(strokeD1N2.Result, operande, operator4);
                 // chemin d-e
                 strokeE1 = new Stroke(strokeD1.Result, operande, operator4);
                     //feuille b-e
