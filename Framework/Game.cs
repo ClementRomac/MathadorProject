@@ -6,10 +6,10 @@ using System.Threading.Tasks;
 
 namespace Framework
 {
-    public abstract class Game
+    public class Game
     {
         public List<DrawResolution> Historical { get; private set; }
-        private DrawResolution currentDraw;
+        private DrawResolution currentDrawResolution;
         public string Pseudo { get; private set; }
         public Game(string pseudo)
         {
@@ -19,15 +19,20 @@ namespace Framework
 
         public void AddDrawResolution(Draw draw)
         {
-            currentDraw = new DrawResolution(draw);
-            Historical.Add(currentDraw);
+            currentDrawResolution = new DrawResolution(draw);
+            Historical.Add(currentDrawResolution);
+        }
+
+        public int GetCurrentDrawResolutionPoints()
+        {
+            return currentDrawResolution.GetCurrentPoints();
         }
 
         public void AddStroke(Stroke stroke)
         {
-            if (!currentDraw.IsFinished())
+            if (!currentDrawResolution.IsFinished())
             {
-                currentDraw.AddStroke(stroke);
+                currentDrawResolution.AddStroke(stroke);
             }
         }
 
