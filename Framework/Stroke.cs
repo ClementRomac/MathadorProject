@@ -32,7 +32,7 @@ namespace Framework
 
         public MathadorOperators Operator { get; private set; }
 
-        public Stroke(int firstOperand, int secondOperand, string mathadorOperator)
+        public Stroke(int firstOperand, int secondOperand, char mathadorOperator)
         {
             FirstOperand = firstOperand;
             SecondOperand = secondOperand;

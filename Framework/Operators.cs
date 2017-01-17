@@ -16,34 +16,34 @@ namespace Framework
 
     public static class OperatorsExtension
     {
-        public static string ToReadableString(this MathadorOperators mathadorOperator)
+        public static char ToReadableChar(this MathadorOperators mathadorOperator)
         {
             switch (mathadorOperator)
             {
                 case MathadorOperators.Addition:
-                    return "+";
+                    return '+';
                 case MathadorOperators.Substraction:
-                    return "-";
+                    return '-';
                 case MathadorOperators.Multiplication:
-                    return "*";
+                    return '*';
                 case MathadorOperators.Division:
-                    return "/";
+                    return '/';
                 default:
-                    return mathadorOperator.ToString();
+                    return new char();
             }
         }
 
-        public static MathadorOperators ToOperator(this string stringOperator)
+        public static MathadorOperators ToOperator(this char stringOperator)
         {
             switch (stringOperator)
             {
-                case "+":
+                case '+':
                     return MathadorOperators.Addition;
-                case "-":
+                case '-':
                     return MathadorOperators.Substraction;
-                case "*":
+                case '*':
                     return MathadorOperators.Multiplication;
-                case "/":
+                case '/':
                     return MathadorOperators.Division;
                 default:
                     throw new FormatException();
