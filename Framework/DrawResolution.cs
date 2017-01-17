@@ -12,11 +12,11 @@ namespace Framework
         public List<Stroke> Strokes { get; private set; }
 
         private Dictionary<MathadorOperators, int> usedOperators;
-        public int lastResult { get; private set; }
+        public int LastResult { get; private set; }
         public DrawResolution(Draw draw)
         {
             Draw = draw;
-            lastResult = 0;
+            LastResult = 0;
             Strokes = new List<Stroke>();
             usedOperators = new Dictionary<MathadorOperators, int>();
             usedOperators.Add(MathadorOperators.Addition, 0);
@@ -27,10 +27,10 @@ namespace Framework
 
         public void AddStroke(Stroke stroke)
         {
-            if(IsFinished())
+            if(!IsFinished())
             {
                 Strokes.Add(stroke);
-                lastResult = stroke.Result;
+                LastResult = stroke.Result;
                 usedOperators[stroke.Operator] += 1;
             }
         }
@@ -57,12 +57,12 @@ namespace Framework
 
         private bool IsMathadorPlay()
         {
-            return usedOperators.Select(o => o.Value == 1).Count() == 4;
+            return usedOperators.Where(o => o.Value == 1).Count() == 4;
         }
 
         public bool IsGoalReached()
         {
-            return lastResult == Draw.Goal;
+            return LastResult == Draw.Goal;
         }
 
         public bool HasAnyStrokeReachTheGoal()
