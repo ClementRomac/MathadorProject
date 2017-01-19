@@ -11,15 +11,16 @@ namespace Solver
     {
         public static bool IsPossible(Draw draw)
         {
-            List<List<int>> Allcase = SwapElementInList(draw.Numbers); //on recupere toutes les combinaisons possibles 
-            foreach (List<int> oneCase in Allcase) // on les test toutes
-            {
-                List<DrawResolution> AllcaseResult = TestWithOperand(oneCase, draw.Goal);
-                 if ( AllcaseResult.Any( c => c.GetCurrentPoints() == 13 )) return true; //si un desl éléments est composé de 13 éléments,  alors on renvoie true car Mathador
+            //List<List<int>> Allcase = SwapElementInList(draw.Numbers); //on recupere toutes les combinaisons possibles 
+            //foreach (List<int> oneCase in Allcase) // on les test toutes
+            //{
+            //    List<DrawResolution> AllcaseResult = TestWithOperand(oneCase, draw.Goal);
+            //     if ( AllcaseResult.Any( c => c.GetCurrentPoints() == 13 )) return true; //si un desl éléments est composé de 13 éléments,  alors on renvoie true car Mathador
 
-            }
-            Console.WriteLine("false");
-            return false;
+            //}
+            //Console.WriteLine("false");
+            //return false;
+            return true;
         }
 
         /// <summary>
@@ -129,13 +130,13 @@ namespace Solver
                                             );*/
                             List<DrawResolution> solution = new List<DrawResolution>();
                             solution = TestOperandWithPriority(Tirage[0],
-                                           ((MathadorOperators)i).ToString(),
+                                           ((MathadorOperators)i).ToReadableChar(),
                                            Tirage[1],
-                                           ((MathadorOperators)j).ToString(),
+                                           ((MathadorOperators)j).ToReadableChar(),
                                            Tirage[2],
-                                           ((MathadorOperators)k).ToString(),
+                                           ((MathadorOperators)k).ToReadableChar(),
                                            Tirage[3],
-                                           ((MathadorOperators)l).ToString(),
+                                           ((MathadorOperators)l).ToReadableChar(),
                                             Tirage[4]
                                            );
 
@@ -161,7 +162,7 @@ namespace Solver
         /// <param name="operand4"></param>
         /// <param name="operand5"></param>
         /// <returns></returns>
-        public static List<DrawResolution> TestOperandWithPriority(int operanda , string operator1, int operandb, string operator2, int operandc, string operator3, int operandd,  string operator4, int operande)
+        public static List<DrawResolution> TestOperandWithPriority(int operanda , char operator1, int operandb, char operator2, int operandc, char operator3, int operandd, char operator4, int operande)
         {
 
 

@@ -36,6 +36,11 @@ namespace Framework
             }
         }
 
+        public bool IsCurrentDrawResolutionFinished()
+        {
+            return currentDrawResolution.IsFinished();
+        }
+
         public int GetTotalPoints()
         {
             int points = 0;

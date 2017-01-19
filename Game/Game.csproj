@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GameFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GameFrm.Designer.cs">
+      <DependentUpon>GameFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="HomeFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -60,6 +66,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GameFrm.resx">
+      <DependentUpon>GameFrm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="HomeFrm.resx">
       <DependentUpon>HomeFrm.cs</DependentUpon>
     </EmbeddedResource>
@@ -95,6 +104,10 @@
     <Content Include="Resources\logo_mathador.ico" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DAO\DAO.csproj">
+      <Project>{aec68df8-ee6d-4b68-aca1-7ad1c443f1f9}</Project>
+      <Name>DAO</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Framework\Framework.csproj">
       <Project>{b2dd082e-c8d4-4958-bd8c-f2b942b59afa}</Project>
       <Name>Framework</Name>

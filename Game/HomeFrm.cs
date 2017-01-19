@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Framework;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -20,13 +21,35 @@ namespace Game
             homePseudoLabel.Text = "Pseudo : " + pseudo;
         }
 
-        private void loginButton_Click(object sender, EventArgs e)
+        private void Game2_Click(object sender, EventArgs e)
         {
+            DialogResult result = slectDrawFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                CreateGame(slectDrawFileDialog.FileName);
+            }
         }
 
-        private void button1_Click(object sender, EventArgs e)
+        private void Game1_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void CreateGame(string filePath)
+        {
+            try
+            {
+                DAO.FileHandler fileHandler = new DAO.FileHandler(filePath);
+                List<Draw> drawList = fileHandler.ReadFile();
+                GameFrm gameFrm = new GameFrm(drawList, pseudo);
+                Hide();
+                gameFrm.ShowDialog();
+                Close();
+            }catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+            
         }
     }
 }

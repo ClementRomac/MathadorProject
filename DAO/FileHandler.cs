@@ -35,5 +35,25 @@ namespace DAO
                 throw ex;
             }
         }
+
+        public List<Draw> ReadFile()
+        {
+            List<Draw> drawList = new List<Draw>();
+            JsonSerializer serializer = new JsonSerializer();
+
+            try
+            {
+                using (StreamReader file = File.OpenText(@path))
+                {
+                    drawList = (List<Draw>)serializer.Deserialize(file, typeof(List<Draw>));
+                }
+
+                return drawList;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }

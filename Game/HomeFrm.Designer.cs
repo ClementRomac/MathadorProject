@@ -33,6 +33,7 @@
             this.newGame1Button = new System.Windows.Forms.Button();
             this.newGame2Button = new System.Windows.Forms.Button();
             this.scoresButton = new System.Windows.Forms.Button();
+            this.slectDrawFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.SuspendLayout();
             // 
             // homePseudoLabel
@@ -56,7 +57,7 @@
             this.newGame1Button.TabIndex = 2;
             this.newGame1Button.Text = "Game 1";
             this.newGame1Button.UseVisualStyleBackColor = true;
-            this.newGame1Button.Click += new System.EventHandler(this.loginButton_Click);
+            this.newGame1Button.Click += new System.EventHandler(this.Game1_Click);
             // 
             // newGame2Button
             // 
@@ -68,7 +69,7 @@
             this.newGame2Button.TabIndex = 3;
             this.newGame2Button.Text = "Game 2";
             this.newGame2Button.UseVisualStyleBackColor = true;
-            this.newGame2Button.Click += new System.EventHandler(this.button1_Click);
+            this.newGame2Button.Click += new System.EventHandler(this.Game2_Click);
             // 
             // scoresButton
             // 
@@ -80,6 +81,10 @@
             this.scoresButton.TabIndex = 4;
             this.scoresButton.Text = "Scores";
             this.scoresButton.UseVisualStyleBackColor = true;
+            // 
+            // slectDrawFileDialog
+            // 
+            this.slectDrawFileDialog.FileName = "drawFile";
             // 
             // HomeFrm
             // 
@@ -108,6 +113,7 @@
         private System.Windows.Forms.Button newGame1Button;
         private System.Windows.Forms.Button newGame2Button;
         private System.Windows.Forms.Button scoresButton;
+        private System.Windows.Forms.OpenFileDialog slectDrawFileDialog;
     }
 }
 
