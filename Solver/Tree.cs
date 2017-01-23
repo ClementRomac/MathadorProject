@@ -61,7 +61,7 @@ namespace Solver
             int C = drawNumbersSwapped[2];
             int D = drawNumbersSwapped[3];
             int E = drawNumbersSwapped[4];
-
+            /*
             Console.Write(A.ToString());
             Console.Write(B.ToString());
             Console.Write(C.ToString());
@@ -74,6 +74,7 @@ namespace Solver
             {
                 Console.WriteLine();
             }
+            */
                 this.Combinaisons = new List<Branch>();
 
             Stroke AB = new Stroke(A, B, ((MathadorOperators)operators[0]).ToReadableChar());

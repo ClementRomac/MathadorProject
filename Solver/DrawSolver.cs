@@ -19,10 +19,7 @@ namespace Solver
                 {
                     Tree iteration = new Tree(draw, oneCase, oneCaseOfOperand);
                     List<Branch> mathadorBranchees = iteration.Combinaisons.Where(b => b.IsMathador()).ToList();
-                    //foreach (Branch branch in mathadorBranchees)
-                    //{
-                    //    SolutionOfGame.Add(branch.GetDrawResolution());
-                    //}
+
                     if (mathadorBranchees.Any(c => c.GoalToReach() == draw.Goal)){
                         return true;
                     }
@@ -30,6 +27,29 @@ namespace Solver
             }
             return false;
         }
+
+        public static List<DrawResolution> GetSolutions(Draw draw)
+        {
+            List<List<int>> Allcase = SwapElementInList(draw.Numbers); //on recupere toutes les combinaisons possibles 
+            List<List<int>> AllcaseOperator = TestWithOperand();
+            List<DrawResolution> results = new List<DrawResolution>();
+
+            foreach (List<int> oneCase in Allcase) // on les test toutes
+            {
+                foreach (List<int> oneCaseOfOperand in AllcaseOperator)
+                {
+                    Tree iteration = new Tree(draw, oneCase, oneCaseOfOperand);
+                    List<Branch> mathadorBranchees = iteration.Combinaisons.Where(b => b.IsMathador()).ToList(); 
+                    foreach (Branch result in mathadorBranchees.Where(b => b.IsGoalReached()).ToList())//renvoie une liste de branches où le Goal est atteind
+                    {
+                        results.Add(result.GetDrawResolution());
+                    }
+                   
+                }
+            }
+            return results;
+        }
+
 
         /// <summary>
         ///  Nous créons une liste de liste d'entier. L'objectif de cette liste est de montrer toutes les combinaisons de positionnement des éléments possibles.
