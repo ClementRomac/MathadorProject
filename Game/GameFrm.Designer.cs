@@ -49,12 +49,15 @@ namespace Game
             this.minusButton = new System.Windows.Forms.RadioButton();
             this.plusButton = new System.Windows.Forms.RadioButton();
             this.historicLabel = new System.Windows.Forms.Label();
+            this.nextButton = new System.Windows.Forms.Button();
+            this.calculLabel = new System.Windows.Forms.Label();
             this.numbersPanel.SuspendLayout();
             this.operatorsPanel.SuspendLayout();
             this.SuspendLayout();
             // 
             // scoresButton
             // 
+            this.scoresButton.BackColor = System.Drawing.Color.Transparent;
             this.scoresButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("scoresButton.BackgroundImage")));
             this.scoresButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.scoresButton.Location = new System.Drawing.Point(295, 362);
@@ -62,7 +65,7 @@ namespace Game
             this.scoresButton.Size = new System.Drawing.Size(185, 76);
             this.scoresButton.TabIndex = 4;
             this.scoresButton.Text = "Calculer";
-            this.scoresButton.UseVisualStyleBackColor = true;
+            this.scoresButton.UseVisualStyleBackColor = false;
             this.scoresButton.Click += new System.EventHandler(this.scoresButton_Click);
             // 
             // homePseudoLabel
@@ -127,9 +130,9 @@ namespace Game
             this.numbersPanel.Controls.Add(this.number3);
             this.numbersPanel.Controls.Add(this.number2);
             this.numbersPanel.Controls.Add(this.number1);
-            this.numbersPanel.Location = new System.Drawing.Point(93, 152);
+            this.numbersPanel.Location = new System.Drawing.Point(94, 123);
             this.numbersPanel.Name = "numbersPanel";
-            this.numbersPanel.Size = new System.Drawing.Size(597, 90);
+            this.numbersPanel.Size = new System.Drawing.Size(596, 91);
             this.numbersPanel.TabIndex = 28;
             // 
             // number5
@@ -204,9 +207,9 @@ namespace Game
             this.operatorsPanel.Controls.Add(this.multiplyButton);
             this.operatorsPanel.Controls.Add(this.minusButton);
             this.operatorsPanel.Controls.Add(this.plusButton);
-            this.operatorsPanel.Location = new System.Drawing.Point(197, 266);
+            this.operatorsPanel.Location = new System.Drawing.Point(197, 231);
             this.operatorsPanel.Name = "operatorsPanel";
-            this.operatorsPanel.Size = new System.Drawing.Size(381, 70);
+            this.operatorsPanel.Size = new System.Drawing.Size(380, 70);
             this.operatorsPanel.TabIndex = 29;
             // 
             // divideButton
@@ -221,6 +224,7 @@ namespace Game
             this.divideButton.Text = "/";
             this.divideButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.divideButton.UseVisualStyleBackColor = true;
+            this.divideButton.CheckedChanged += new System.EventHandler(this.OnOperatorButtonChecked);
             // 
             // multiplyButton
             // 
@@ -234,6 +238,7 @@ namespace Game
             this.multiplyButton.Text = "*";
             this.multiplyButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.multiplyButton.UseVisualStyleBackColor = true;
+            this.multiplyButton.CheckedChanged += new System.EventHandler(this.OnOperatorButtonChecked);
             // 
             // minusButton
             // 
@@ -247,6 +252,7 @@ namespace Game
             this.minusButton.Text = "-";
             this.minusButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.minusButton.UseVisualStyleBackColor = true;
+            this.minusButton.CheckedChanged += new System.EventHandler(this.OnOperatorButtonChecked);
             // 
             // plusButton
             // 
@@ -260,6 +266,7 @@ namespace Game
             this.plusButton.Text = "+";
             this.plusButton.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.plusButton.UseVisualStyleBackColor = true;
+            this.plusButton.CheckedChanged += new System.EventHandler(this.OnOperatorButtonChecked);
             // 
             // historicLabel
             // 
@@ -272,6 +279,29 @@ namespace Game
             this.historicLabel.TabIndex = 30;
             this.historicLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
+            // nextButton
+            // 
+            this.nextButton.BackColor = System.Drawing.Color.Transparent;
+            this.nextButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("nextButton.BackgroundImage")));
+            this.nextButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.nextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.nextButton.Location = new System.Drawing.Point(670, 394);
+            this.nextButton.Name = "nextButton";
+            this.nextButton.Size = new System.Drawing.Size(115, 44);
+            this.nextButton.TabIndex = 31;
+            this.nextButton.Text = "Suivant >";
+            this.nextButton.UseVisualStyleBackColor = false;
+            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
+            // 
+            // calculLabel
+            // 
+            this.calculLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.calculLabel.Location = new System.Drawing.Point(295, 321);
+            this.calculLabel.Name = "calculLabel";
+            this.calculLabel.Size = new System.Drawing.Size(185, 38);
+            this.calculLabel.TabIndex = 32;
+            this.calculLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // GameFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -279,6 +309,8 @@ namespace Game
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(797, 450);
+            this.Controls.Add(this.calculLabel);
+            this.Controls.Add(this.nextButton);
             this.Controls.Add(this.historicLabel);
             this.Controls.Add(this.goalLabel);
             this.Controls.Add(this.currentPointsLabel);
@@ -319,6 +351,8 @@ namespace Game
         private System.Windows.Forms.RadioButton divideButton;
         private System.Windows.Forms.RadioButton multiplyButton;
         private System.Windows.Forms.Label historicLabel;
+        private System.Windows.Forms.Button nextButton;
+        private System.Windows.Forms.Label calculLabel;
     }
 }
 

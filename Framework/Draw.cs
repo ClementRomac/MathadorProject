@@ -22,7 +22,7 @@ namespace Framework
             Goal = goal;
         }
 
-        public List<Stroke> GetSolution()
+        public List<Stroke> GetSolutions()
         {
             throw new NotImplementedException();
         }

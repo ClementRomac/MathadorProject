@@ -26,22 +26,26 @@ namespace Game
             DialogResult result = slectDrawFileDialog.ShowDialog();
             if (result == DialogResult.OK)
             {
-                CreateGame(slectDrawFileDialog.FileName);
+                CreateGame(slectDrawFileDialog.FileName, GameType.Fastest);
             }
         }
 
         private void Game1_Click(object sender, EventArgs e)
         {
-
+            DialogResult result = slectDrawFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                CreateGame(slectDrawFileDialog.FileName, GameType.AgainstTime);
+            }
         }
 
-        private void CreateGame(string filePath)
+        private void CreateGame(string filePath, GameType type)
         {
             try
             {
                 DAO.FileHandler fileHandler = new DAO.FileHandler(filePath);
                 List<Draw> drawList = fileHandler.ReadFile();
-                GameFrm gameFrm = new GameFrm(drawList, pseudo);
+                GameFrm gameFrm = new GameFrm(drawList, pseudo, type);
                 Hide();
                 gameFrm.ShowDialog();
                 Close();

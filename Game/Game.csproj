@@ -64,6 +64,7 @@
     <Compile Include="LoginFrm.Designer.cs">
       <DependentUpon>LoginFrm.cs</DependentUpon>
     </Compile>
+    <Compile Include="GameTypes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <EmbeddedResource Include="GameFrm.resx">
