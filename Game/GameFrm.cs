@@ -165,7 +165,8 @@ namespace Game
             switch(type)
             {
                 case GameType.AgainstTime:
-                    referentTime = now.AddMinutes(3);
+                    //referentTime = now.AddMinutes(1);
+                    referentTime = now.AddSeconds(15);
                     this.timeLabel.Text = (referentTime - now).ToString("mm\\:ss");
                     break;
                 case GameType.Fastest:
@@ -177,20 +178,35 @@ namespace Game
             game.BeginTime = now;     
         }
 
-        void timer_Tick(object sender, EventArgs e)
+        private void timer_Tick(object sender, EventArgs e)
         {
+            DateTime now = DateTime.Now;
             if(type == GameType.AgainstTime)
             {
-                this.timeLabel.Text = (referentTime - DateTime.Now).ToString("mm\\:ss");
-                if (this.timeLabel.Text == "00:00")
+                TimeSpan remainingTime = (referentTime - now);
+                this.timeLabel.Text = remainingTime.ToString("mm\\:ss");
+
+                if (remainingTime < new TimeSpan(0, 0, 1))
                 {
                     FinishGame();
                 }
+                else if(remainingTime < new TimeSpan(0, 0, 10))
+                {
+                    Blink();
+                }
+                
             }
             else if(type == GameType.Fastest)
             {
-                this.timeLabel.Text = (DateTime.Now - referentTime).ToString("mm\\:ss");
+                this.timeLabel.Text = (now - referentTime).ToString("mm\\:ss");
             }
+        }
+
+        private async void Blink()
+        {
+            this.timeLabel.ForeColor = Color.Red;
+            await Task.Delay(250);
+            this.timeLabel.ForeColor = Color.Black;
         }
 
         private void SetHistoricalAndPoints(Stroke stroke = null)
@@ -222,6 +238,7 @@ namespace Game
         {
             game.FinishTime = DateTime.Now;
             ((Timer)timer).Stop();
+            this.timeLabel.ForeColor = Color.Red;
             //TODO: Insertion BDD
 
             if (MessageBox.Show("Partie terminée !", "Bravo !", MessageBoxButtons.OK) == DialogResult.OK)

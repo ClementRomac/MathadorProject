@@ -28,12 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HomeFrm));
             this.homePseudoLabel = new System.Windows.Forms.Label();
             this.newGame1Button = new System.Windows.Forms.Button();
             this.newGame2Button = new System.Windows.Forms.Button();
             this.scoresButton = new System.Windows.Forms.Button();
             this.slectDrawFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.gameInfosToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // homePseudoLabel
@@ -55,7 +57,8 @@
             this.newGame1Button.Name = "newGame1Button";
             this.newGame1Button.Size = new System.Drawing.Size(339, 51);
             this.newGame1Button.TabIndex = 2;
-            this.newGame1Button.Text = "Game 1";
+            this.newGame1Button.Text = "Contre la montre";
+            this.gameInfosToolTip.SetToolTip(this.newGame1Button, resources.GetString("newGame1Button.ToolTip"));
             this.newGame1Button.UseVisualStyleBackColor = true;
             this.newGame1Button.Click += new System.EventHandler(this.Game1_Click);
             // 
@@ -67,7 +70,9 @@
             this.newGame2Button.Name = "newGame2Button";
             this.newGame2Button.Size = new System.Drawing.Size(339, 51);
             this.newGame2Button.TabIndex = 3;
-            this.newGame2Button.Text = "Game 2";
+            this.newGame2Button.Text = "Rapidité";
+            this.gameInfosToolTip.SetToolTip(this.newGame2Button, "Dans ce mode de jeu, vous devez résoudre un jeu de tirages le plus rapidement pos" +
+        "sible. \r\nLa partie se termine une fois tous les tirages passés.");
             this.newGame2Button.UseVisualStyleBackColor = true;
             this.newGame2Button.Click += new System.EventHandler(this.Game2_Click);
             // 
@@ -114,6 +119,7 @@
         private System.Windows.Forms.Button newGame2Button;
         private System.Windows.Forms.Button scoresButton;
         private System.Windows.Forms.OpenFileDialog slectDrawFileDialog;
+        private System.Windows.Forms.ToolTip gameInfosToolTip;
     }
 }
 

@@ -31,13 +31,5 @@ namespace Game
                 MessageBox.Show("Username invalide");
             }
         }
-
-        private void LoginFrm_KeyDown(object sender, KeyEventArgs e)
-        {
-            if(e.KeyCode == Keys.Enter)
-            {
-                loginButton.PerformClick();
-            }
-        }
     }
 }

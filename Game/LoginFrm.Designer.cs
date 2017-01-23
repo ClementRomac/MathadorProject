@@ -67,6 +67,7 @@
             // 
             // LoginFrm
             // 
+            this.AcceptButton = this.loginButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
@@ -81,7 +82,6 @@
             this.MaximizeBox = false;
             this.Name = "LoginFrm";
             this.Text = "Accueil";
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.LoginFrm_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

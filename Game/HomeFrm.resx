@@ -502,6 +502,14 @@
         b/3/fObdT1nux94AAAAASUVORK5CYII=
 </value>
   </data>
+  <metadata name="gameInfosToolTip.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>207, 17</value>
+  </metadata>
+  <data name="newGame1Button.ToolTip" xml:space="preserve">
+    <value>Dans ce mode de jeu, vous aurez trois minutes pour résoudre le plus de tirages possibles 
+provenant d'un fhicher de tirages. Si vous résolvez tous les tirages avant la fin du temps imparti,
+le jeu s'arrête.</value>
+  </data>
   <data name="newGame2Button.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAlgAAAD3CAYAAADBsyrOAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
