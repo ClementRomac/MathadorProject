@@ -11,17 +11,45 @@ namespace Solver
     {
         public static bool IsPossible(Draw draw)
         {
-            //List<List<int>> Allcase = SwapElementInList(draw.Numbers); //on recupere toutes les combinaisons possibles 
-            //foreach (List<int> oneCase in Allcase) // on les test toutes
-            //{
-            //    List<DrawResolution> AllcaseResult = TestWithOperand(oneCase, draw.Goal);
-            //     if ( AllcaseResult.Any( c => c.GetCurrentPoints() == 13 )) return true; //si un desl éléments est composé de 13 éléments,  alors on renvoie true car Mathador
+            List<List<int>> Allcase = SwapElementInList(draw.Numbers); //on recupere toutes les combinaisons possibles 
+            List<List<int>> AllcaseOperator = TestWithOperand();
+            foreach (List<int> oneCase in Allcase) // on les test toutes
+            {
+                foreach (List<int> oneCaseOfOperand in AllcaseOperator)
+                {
+                    Tree iteration = new Tree(draw, oneCase, oneCaseOfOperand);
+                    List<Branch> mathadorBranchees = iteration.Combinaisons.Where(b => b.IsMathador()).ToList();
 
-            //}
-            //Console.WriteLine("false");
-            //return false;
-            return true;
+                    if (mathadorBranchees.Any(c => c.GoalToReach() == draw.Goal)){
+                        return true;
+                    }
+                }
+            }
+            return false;
         }
+
+        public static List<DrawResolution> GetSolutions(Draw draw)
+        {
+            List<List<int>> Allcase = SwapElementInList(draw.Numbers); //on recupere toutes les combinaisons possibles 
+            List<List<int>> AllcaseOperator = TestWithOperand();
+            List<DrawResolution> results = new List<DrawResolution>();
+
+            foreach (List<int> oneCase in Allcase) // on les test toutes
+            {
+                foreach (List<int> oneCaseOfOperand in AllcaseOperator)
+                {
+                    Tree iteration = new Tree(draw, oneCase, oneCaseOfOperand);
+                    List<Branch> mathadorBranchees = iteration.Combinaisons.Where(b => b.IsMathador()).ToList(); 
+                    foreach (Branch result in mathadorBranchees.Where(b => b.IsGoalReached()).ToList())//renvoie une liste de branches où le Goal est atteind
+                    {
+                        results.Add(result.GetDrawResolution());
+                    }
+                   
+                }
+            }
+            return results;
+        }
+
 
         /// <summary>
         ///  Nous créons une liste de liste d'entier. L'objectif de cette liste est de montrer toutes les combinaisons de positionnement des éléments possibles.
@@ -48,8 +76,9 @@ namespace Solver
                             {
                                 if (i == m || j == m || k == m || l == m) continue;
                                 List<int> TirageSwapped = new List<int>();
-                                TirageSwapped.AddRange(new int[5] { i, j, k, l, m, }); // on remplace 0 1 2 3 4 5 par nos éléments réels de la liste
+                                TirageSwapped.AddRange(new int[5] { i, j, k, l, m, });
                                 Allcase.Add(TirageSwapped);
+
 
                             }
                         }
@@ -57,8 +86,7 @@ namespace Solver
                 }
             }
 
-            Console.Write("");
-            Allcase = ReplaceElement(Allcase, Tirage);
+            Allcase = ReplaceElement(Allcase, Tirage); // on remplace 0 1 2 3 4 5 par nos éléments réels de la liste
             return Allcase;
         }
         /// <summary>
@@ -76,6 +104,9 @@ namespace Solver
         {
             foreach (List<int> oneCase in Allcase) // Pour tous les tirages on remplace les value
             {
+
+
+
                 var i = oneCase.FindIndex(x => x == 0);
                 oneCase[i] = Tirage[0];
 
@@ -90,6 +121,7 @@ namespace Solver
 
                 var m = oneCase.FindIndex(x => x == 4);
                 oneCase[m] = Tirage[4];
+
             }
             return Allcase;
         }
@@ -102,10 +134,9 @@ namespace Solver
         /// <param name="Tirage"></param>
         /// <param name="goal"></param>
         /// <returns></returns>
-        public static List<DrawResolution> TestWithOperand(List<int> Tirage, int goal)
+        public static List<List<int>> TestWithOperand(/*Draw draw*/)
         {
-            List<DrawResolution> SolutionOfGame = new List<DrawResolution>();
-            
+            List<List<int>> SolutionOfGame = new List<List<int>>();
             for (int i = 0; i < 4; i++)
             {
                 for (int j = 0; j < 4; j++)
@@ -116,29 +147,10 @@ namespace Solver
                         if (i == k || j == k) continue;
                         for (int l = 0; l < 4; l++)
                         {
-                            if (i == k || j == k) continue;
-
-                            /*   Console.WriteLine(Tirage[0].ToString() +
-                                            ((MathadorOperators)i).ToReadableString() +
-                                            Tirage[1].ToString() +
-                                            ((MathadorOperators)j).ToReadableString() +
-                                            Tirage[2].ToString() +
-                                            ((MathadorOperators)k).ToReadableString() +
-                                            Tirage[3].ToString() +
-                                            ((MathadorOperators)l).ToReadableString() +
-                                             Tirage[4].ToString()
-                                            );*/
-                            List<DrawResolution> solution = new List<DrawResolution>();
-                            solution = TestOperandWithPriority(Tirage[0],
-                                           ((MathadorOperators)i).ToReadableChar(),
-                                           Tirage[1],
-                                           ((MathadorOperators)j).ToReadableChar(),
-                                           Tirage[2],
-                                           ((MathadorOperators)k).ToReadableChar(),
-                                           Tirage[3],
-                                           ((MathadorOperators)l).ToReadableChar(),
-                                            Tirage[4]
-                                           );
+                            if (i == l || j == l || k == l) continue;
+                            List<int> operators = new List<int>();
+                            operators.AddRange(new int[4] { i, j, k, l });
+                            SolutionOfGame.Add(operators);
 
                         }
                     }
@@ -162,67 +174,6 @@ namespace Solver
         /// <param name="operand4"></param>
         /// <param name="operand5"></param>
         /// <returns></returns>
-        public static List<DrawResolution> TestOperandWithPriority(int operanda , char operator1, int operandb, char operator2, int operandc, char operator3, int operandd, char operator4, int operande)
-        {
-
-
-            // TODO : écrire arbre
-
-            Stroke strokeB = new Stroke(operanda,operandb, operator1);
-
-            // chemin c-d
-             
-            Stroke strokeD1 = new Stroke(operandc,operandd, operator3);
-                // chemin b-d
-                 strokeD1 = new Stroke(strokeB.Result, strokeD1.Result, operator2);
-                    //feuille d-e
-                    Stroke strokeE1 = new Stroke(strokeD1.Result, operande, operator4);
-                // chemin d-e
-                strokeE1 = new Stroke(strokeD1.Result, operande, operator4);
-                    //feuille b-e
-                    strokeE1 = new Stroke(strokeB.Result, operande, operator2);
-
-
-            // chemin b-c
-             Stroke strokeC2 = new Stroke(strokeB.Result,operandc, operator2);
-                // chemin d-e
-                 Stroke strokeE2 = new Stroke(operandd, operande, operator4);
-                    //feuille c-e
-                     strokeE2 = new Stroke(strokeC2.Result, operande, operator3);
-                // chemin c-d
-                Stroke strokeD2 = new Stroke(strokeC2.Result, operandd, operator3);
-                    //feuille d-e
-                    strokeE1 = new Stroke(strokeD2.Result, operande, operator4);
-
-
-            // chemin d-e
-             Stroke strokeE3 = new Stroke(operandd, operande, operator4);
-                // chemin b-c
-                 Stroke strokeC3 = new Stroke(strokeB.Result, operandc, operator2);
-                    //feuille c-e
-                     strokeE3 = new Stroke(strokeC3.Result, strokeE3.Result, operator3);
-                // chemin c-e
-                strokeE3 = new Stroke(strokeC3.Result, strokeE3.Result, operator3);
-                    //feuille b-e
-                    strokeE3 = new Stroke(strokeB.Result, strokeE3.Result, operator2);
-
-
-            //todo pour chaque stroke test si score atteint, si oui on les ajoute dans une liste solution que l'on retourne
-            /*
-
-            solution.AddStroke(stroke0);
-            if (solution.IsGoalReached())
-            {
-                SolutionOfGame.Add(solution);
-            }
-            */
-
-
-            return null;
-        }
-
-
-
 
         public static List<List<Stroke>> FindSolutions(Draw draw)
         {

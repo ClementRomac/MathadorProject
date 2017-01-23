@@ -64,5 +64,10 @@ namespace Framework
         {
             return LastResult == Draw.Goal;
         }
+
+        public bool HasAnyStrokeReachTheGoal()
+        {
+            return Strokes.Any(s => s.Result == Draw.Goal) ;
+        }
     }
 }

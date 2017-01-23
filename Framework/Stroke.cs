@@ -19,7 +19,14 @@ namespace Framework
                         return FirstOperand + SecondOperand;
                     case MathadorOperators.Substraction:
                         int tmp = FirstOperand - SecondOperand;
-                        return tmp < 0 ? 0 : tmp;
+                        if(tmp < 0)
+                        {
+                            throw new Exception("Le résultat est inférieur à 0");
+                        }
+                        else
+                        {
+                            return tmp;
+                        }
                     case MathadorOperators.Multiplication:
                         return FirstOperand * SecondOperand;
                     case MathadorOperators.Division:
