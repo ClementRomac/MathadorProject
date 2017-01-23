@@ -10,6 +10,8 @@ namespace Framework
     {
         public List<DrawResolution> Historical { get; private set; }
         private DrawResolution currentDrawResolution;
+        public DateTime BeginTime;
+        public DateTime FinishTime;
         public string Pseudo { get; private set; }
         public Game(string pseudo)
         {

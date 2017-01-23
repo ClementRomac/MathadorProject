@@ -21,6 +21,9 @@ namespace Game
         private CheckBox operand2;
         private RadioButton operatorRadioButton;
         private GameType type;
+        private DateTime referentTime;
+        private Timer timer;
+
         public GameFrm(List<Draw> drawList, string pseudo, GameType type)
         {
             InitializeComponent();
@@ -52,14 +55,7 @@ namespace Game
             }
             else
             {
-                if(MessageBox.Show("Partie terminée !", "Bravo !", MessageBoxButtons.OK) == DialogResult.OK)
-                {
-                    //Insertion BDD
-                    HomeFrm homeFrm = new HomeFrm(pseudo);
-                    this.Hide();
-                    homeFrm.ShowDialog();
-                    this.Close();
-                }
+                FinishGame();
             }
             
         }
@@ -160,15 +156,41 @@ namespace Game
 
         private void SetTimer()
         {
+            timer = new Timer();
+            timer.Interval = 1000; // tick each second
+            timer.Tick += new EventHandler(timer_Tick);
+            timer.Start();
+            DateTime now = DateTime.Now;
+        
             switch(type)
             {
                 case GameType.AgainstTime:
-                    this.timeLabel.Text = "3:00";
+                    referentTime = now.AddMinutes(3);
+                    this.timeLabel.Text = (referentTime - now).ToString("mm\\:ss");
                     break;
                 case GameType.Fastest:
-                    this.timeLabel.Text = "00:00";
+                    referentTime = now;
+                    this.timeLabel.Text = (now - referentTime).ToString("mm\\:ss");
                     break;
-            }         
+            }
+
+            game.BeginTime = now;     
+        }
+
+        void timer_Tick(object sender, EventArgs e)
+        {
+            if(type == GameType.AgainstTime)
+            {
+                this.timeLabel.Text = (referentTime - DateTime.Now).ToString("mm\\:ss");
+                if (this.timeLabel.Text == "00:00")
+                {
+                    FinishGame();
+                }
+            }
+            else if(type == GameType.Fastest)
+            {
+                this.timeLabel.Text = (DateTime.Now - referentTime).ToString("mm\\:ss");
+            }
         }
 
         private void SetHistoricalAndPoints(Stroke stroke = null)
@@ -194,6 +216,21 @@ namespace Game
             numbersPanel.Controls.OfType<CheckBox>().ToList().ForEach(b => b.Checked = false);
             operatorsPanel.Controls.OfType<RadioButton>().ToList().ForEach(b => b.Checked = false);
             calculLabel.Text = operand1?.Text + " " + operatorRadioButton?.Text + " " + operand2?.Text;
+        }
+
+        private void FinishGame()
+        {
+            game.FinishTime = DateTime.Now;
+            ((Timer)timer).Stop();
+            //TODO: Insertion BDD
+
+            if (MessageBox.Show("Partie terminée !", "Bravo !", MessageBoxButtons.OK) == DialogResult.OK)
+            {
+                HomeFrm homeFrm = new HomeFrm(pseudo);
+                this.Hide();
+                homeFrm.ShowDialog();
+                this.Close();
+            }
         }
     }
 }
