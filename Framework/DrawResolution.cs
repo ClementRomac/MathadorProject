@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Framework
 {
@@ -65,7 +62,7 @@ namespace Framework
             return LastResult == Draw.Goal;
         }
 
-        public bool HasAnyStrokeReachTheGoal()
+        public bool HasAnyStrokeReachedTheGoal()
         {
             return Strokes.Any(s => s.Result == Draw.Goal) ;
         }

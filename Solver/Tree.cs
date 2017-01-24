@@ -1,79 +1,51 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Framework;
 namespace Solver
 {
-    public class Branch
+    internal class Branch
     {
-        DrawResolution Set;
+        public DrawResolution DrawResolution { get; private set; }
 
         public Branch(Stroke Stroke1, Stroke Stroke2, Stroke Stroke3, Stroke Stroke4, Draw draw)
         {
-            this.Set = new DrawResolution(draw);
-            Set.AddStroke(Stroke1);
-            Set.AddStroke(Stroke2);
-            Set.AddStroke(Stroke3);
-            Set.AddStroke(Stroke4);
+            this.DrawResolution = new DrawResolution(draw);
+            DrawResolution.AddStroke(Stroke1);
+            DrawResolution.AddStroke(Stroke2);
+            DrawResolution.AddStroke(Stroke3);
+            DrawResolution.AddStroke(Stroke4);
 
         }
-
-        public int GoalToReach()
-        {
-            return Set.Draw.Goal;
-        }
-
 
         public bool IsGoalReached()
         {
-            return Set.IsGoalReached();
+            return DrawResolution.IsGoalReached();
         }
 
         public bool IsMathador()
         {
-            return Set.GetCurrentPoints() == 13; //si nombre de points =13 alors il y a mathador
+            return DrawResolution.GetCurrentPoints() == 13; //si nombre de points =13 alors il y a mathador
         }
 
-        public bool HasAnyStrokeReachTheGoal()
+        public bool HasAnyStrokeReachedTheGoal()
         {
-            return Set.HasAnyStrokeReachTheGoal();
+            return DrawResolution.HasAnyStrokeReachedTheGoal();
         }
-
-        public DrawResolution GetDrawResolution()
-        {
-            return Set;
-        }
-
     }
-    public class Tree
+    internal class Tree
     {
         public List<Branch> Combinaisons { get; private set; }
         private Draw draw;
         
-        public Tree(Draw draw,List<int>drawNumbersSwapped, List<int> operators)
+        public Tree(Draw draw,List<int> drawNumbersSwapped, List<int> operators)
         {
             int A = drawNumbersSwapped[0];
             int B = drawNumbersSwapped[1];
             int C = drawNumbersSwapped[2];
             int D = drawNumbersSwapped[3];
             int E = drawNumbersSwapped[4];
-            /*
-            Console.Write(A.ToString());
-            Console.Write(B.ToString());
-            Console.Write(C.ToString());
-            Console.Write(D.ToString());
-            Console.Write(E.ToString());
 
-            Console.WriteLine();
-
-            if (A == 12 && B == 9 && C ==12 && D==9 && E ==7)
-            {
-                Console.WriteLine();
-            }
-            */
-                this.Combinaisons = new List<Branch>();
+            this.Combinaisons = new List<Branch>();
 
             Stroke AB = new Stroke(A, B, ((MathadorOperators)operators[0]).ToReadableChar());
             try

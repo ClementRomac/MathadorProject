@@ -9,11 +9,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Game
+namespace GameInterface
 {
-    public partial class ScoresFrm : Form
+    internal partial class ScoresFrm : Form
     {
-
         public ScoresFrm()
         {
             InitializeComponent();

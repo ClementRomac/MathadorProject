@@ -1,37 +1,38 @@
 ﻿using Framework;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Game
+namespace GameInterface
 {
-    public partial class GameFrm : Form
+    internal partial class GameFrm : Form
     {
         private List<Draw> drawList;
         private int currentDraw;
-        private Framework.Game game;
+
+        private Game game;
         private string pseudo;
+
         private CheckBox operand1;
         private CheckBox operand2;
         private RadioButton operatorRadioButton;
-        private GameType type;
+
+        private GameType gameType;
         private DateTime referentTime;
         private Timer timer;
 
-        public GameFrm(List<Draw> drawList, string pseudo, GameType type)
+        public GameFrm(List<Draw> drawList, string pseudo, GameType gameType)
         {
             InitializeComponent();
             currentDraw = 0;
             this.pseudo = pseudo;
-            this.type = type;
+            this.gameType = gameType;
             homePseudoLabel.Text = "Pseudo : " + pseudo;
-            game = new Framework.Game(pseudo);
+            game = new Game(pseudo);
             this.drawList = drawList;
             SetTimer();
 
@@ -43,14 +44,14 @@ namespace Game
             if(currentDraw < drawList.Count)
             {
                 game.AddDrawResolution(drawList[currentDraw]);
-                this.number1.Text = drawList[currentDraw].Numbers[0].ToString();
-                this.number2.Text = drawList[currentDraw].Numbers[1].ToString();
-                this.number3.Text = drawList[currentDraw].Numbers[2].ToString();
-                this.number4.Text = drawList[currentDraw].Numbers[3].ToString();
-                this.number5.Text = drawList[currentDraw].Numbers[4].ToString();
+                number1.Text = drawList[currentDraw].Numbers[0].ToString();
+                number2.Text = drawList[currentDraw].Numbers[1].ToString();
+                number3.Text = drawList[currentDraw].Numbers[2].ToString();
+                number4.Text = drawList[currentDraw].Numbers[3].ToString();
+                number5.Text = drawList[currentDraw].Numbers[4].ToString();
                 numbersPanel.Controls.OfType<CheckBox>().ToList().ForEach(b => b.Enabled = true);
                 numbersPanel.Controls.OfType<CheckBox>().ToList().ForEach(b => b.Show());
-                this.goalLabel.Text = drawList[currentDraw].Goal.ToString();
+                goalLabel.Text = drawList[currentDraw].Goal.ToString();
                 SetHistoricalAndPoints();               
             }
             else
@@ -162,7 +163,7 @@ namespace Game
             timer.Start();
             DateTime now = DateTime.Now;
         
-            switch(type)
+            switch(gameType)
             {
                 case GameType.AgainstTime:
                     referentTime = now.AddMinutes(3);
@@ -180,7 +181,7 @@ namespace Game
         private void timer_Tick(object sender, EventArgs e)
         {
             DateTime now = DateTime.Now;
-            if(type == GameType.AgainstTime)
+            if(gameType == GameType.AgainstTime)
             {
                 TimeSpan remainingTime = (referentTime - now);
                 this.timeLabel.Text = remainingTime.ToString("mm\\:ss");
@@ -195,7 +196,7 @@ namespace Game
                 }
                 
             }
-            else if(type == GameType.Fastest)
+            else if(gameType == GameType.Fastest)
             {
                 this.timeLabel.Text = (now - referentTime).ToString("mm\\:ss");
             }

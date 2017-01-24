@@ -2,14 +2,10 @@
 using Solver;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.IO;
 
 namespace Generator
 {
-    public class DrawGenerator
+    internal class DrawGenerator
     {
         private static Random random = new Random();
         public DrawGenerator(int max, string path)
@@ -17,7 +13,7 @@ namespace Generator
             List<Draw> generatedDraws = new List<Draw>();
             for (int i = 0; i < max; i++)
             {
-                Draw tmp = Generate();
+                Draw tmp = GenerateDraw();
                 generatedDraws.Add(tmp);
             }
 
@@ -32,7 +28,7 @@ namespace Generator
             }
         }
 
-        private Draw Generate()
+        private Draw GenerateDraw()
         {
             Draw generatedDraw = null;
             do

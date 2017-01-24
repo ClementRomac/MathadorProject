@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Framework
 {
@@ -49,7 +45,7 @@ namespace Framework
             }
             catch(Exception ex)
             {
-                throw new Exception();
+                throw ex;
             }
         }
 

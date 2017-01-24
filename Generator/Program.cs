@@ -1,10 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace Generator
 {
@@ -71,6 +67,7 @@ namespace Generator
 
             try
             {
+                Console.WriteLine("Génération en cours...");
                 DrawGenerator tmp = new DrawGenerator(numberOfDraws, path);
                 Console.WriteLine("Fichier généré avec succès.");
             }

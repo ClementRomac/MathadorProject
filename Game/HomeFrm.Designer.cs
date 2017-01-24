@@ -1,4 +1,4 @@
-﻿namespace Game
+﻿namespace GameInterface
 {
     partial class HomeFrm
     {
@@ -34,7 +34,7 @@
             this.newGame1Button = new System.Windows.Forms.Button();
             this.newGame2Button = new System.Windows.Forms.Button();
             this.scoresButton = new System.Windows.Forms.Button();
-            this.slectDrawFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.selectDrawFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.gameInfosToolTip = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
@@ -90,7 +90,7 @@
             // 
             // slectDrawFileDialog
             // 
-            this.slectDrawFileDialog.FileName = "drawFile";
+            this.selectDrawFileDialog.FileName = "drawFile";
             // 
             // HomeFrm
             // 
@@ -119,7 +119,7 @@
         private System.Windows.Forms.Button newGame1Button;
         private System.Windows.Forms.Button newGame2Button;
         private System.Windows.Forms.Button scoresButton;
-        private System.Windows.Forms.OpenFileDialog slectDrawFileDialog;
+        private System.Windows.Forms.OpenFileDialog selectDrawFileDialog;
         private System.Windows.Forms.ToolTip gameInfosToolTip;
     }
 }

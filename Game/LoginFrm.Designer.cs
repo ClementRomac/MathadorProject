@@ -1,4 +1,4 @@
-﻿namespace Game
+﻿namespace GameInterface
 {
     partial class LoginFrm
     {

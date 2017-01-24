@@ -1,17 +1,11 @@
 ﻿using Framework;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Game
+namespace GameInterface
 {
-    public partial class HomeFrm : Form
+    internal partial class HomeFrm : Form
     {
         private string pseudo;
         public HomeFrm(string pseudo)
@@ -23,37 +17,35 @@ namespace Game
 
         private void Game2_Click(object sender, EventArgs e)
         {
-            DialogResult result = slectDrawFileDialog.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                CreateGame(slectDrawFileDialog.FileName, GameType.Fastest);
-            }
+            CreateGame(GameType.Fastest);
         }
 
         private void Game1_Click(object sender, EventArgs e)
         {
-            DialogResult result = slectDrawFileDialog.ShowDialog();
-            if (result == DialogResult.OK)
-            {
-                CreateGame(slectDrawFileDialog.FileName, GameType.AgainstTime);
-            }
+            CreateGame(GameType.AgainstTime);
         }
 
-        private void CreateGame(string filePath, GameType type)
+        private void CreateGame(GameType type)
         {
-            try
+            selectDrawFileDialog.Filter = "json files (*.json)|*.json";
+            selectDrawFileDialog.RestoreDirectory = true;
+            DialogResult result = selectDrawFileDialog.ShowDialog();
+            if (result == DialogResult.OK)
             {
-                DAO.FileHandler fileHandler = new DAO.FileHandler(filePath);
-                List<Draw> drawList = fileHandler.ReadFile();
-                GameFrm gameFrm = new GameFrm(drawList, pseudo, type);
-                Hide();
-                gameFrm.ShowDialog();
-                Close();
-            }catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
-            
+                try
+                {
+                    DAO.FileHandler fileHandler = new DAO.FileHandler(selectDrawFileDialog.FileName);
+                    List<Draw> drawList = fileHandler.ReadFile();
+                    GameFrm gameFrm = new GameFrm(drawList, pseudo, type);
+                    Hide();
+                    gameFrm.ShowDialog();
+                    Close();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }            
         }
 
         private void scoresButton_Click(object sender, EventArgs e)

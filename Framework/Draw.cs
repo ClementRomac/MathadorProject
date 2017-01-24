@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace Framework
 {
@@ -14,28 +10,12 @@ namespace Framework
             private set;
         }
 
-        public int this[int i]
-        {
-            get { return Numbers[i]; }
-            set { Numbers[i] = value; }
-        }
-
         public int Goal { get; private set; }
 
         public Draw(List<int> numbers, int goal)
         {
             Numbers = numbers;
             Goal = goal;
-        }
-
-        public List<Stroke> GetSolutions()
-        {
-            throw new NotImplementedException();
-        }
-
-        public Draw Clone()
-        {
-            return new Draw(Numbers, Goal);
         }
     }
 }
