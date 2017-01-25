@@ -55,5 +55,13 @@ namespace Game
             }
             
         }
+
+        private void scoresButton_Click(object sender, EventArgs e)
+        {
+            ScoresFrm scoresFrm = new ScoresFrm();
+            Hide();
+            scoresFrm.ShowDialog();
+            Close();
+        }
     }
 }

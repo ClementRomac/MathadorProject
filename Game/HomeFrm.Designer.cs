@@ -86,6 +86,7 @@
             this.scoresButton.TabIndex = 4;
             this.scoresButton.Text = "Scores";
             this.scoresButton.UseVisualStyleBackColor = true;
+            this.scoresButton.Click += new System.EventHandler(this.scoresButton_Click);
             // 
             // slectDrawFileDialog
             // 

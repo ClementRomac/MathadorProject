@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ScoresFrm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScoresFrm.Designer.cs">
+      <DependentUpon>ScoresFrm.cs</DependentUpon>
+    </Compile>
     <Compile Include="GameFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -67,6 +73,9 @@
     <Compile Include="GameTypes.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ScoresFrm.resx">
+      <DependentUpon>ScoresFrm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GameFrm.resx">
       <DependentUpon>GameFrm.cs</DependentUpon>
     </EmbeddedResource>

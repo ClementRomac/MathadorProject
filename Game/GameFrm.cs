@@ -165,8 +165,7 @@ namespace Game
             switch(type)
             {
                 case GameType.AgainstTime:
-                    //referentTime = now.AddMinutes(1);
-                    referentTime = now.AddSeconds(15);
+                    referentTime = now.AddMinutes(3);
                     this.timeLabel.Text = (referentTime - now).ToString("mm\\:ss");
                     break;
                 case GameType.Fastest:
