@@ -53,5 +53,10 @@ namespace Framework
         {
             return Operator.GetPoints();
         }
+
+        public override string ToString()
+        {
+            return FirstOperand.ToString() + " " + Operator.ToReadableChar() + " " + SecondOperand.ToString();
+        }
     }
 }
