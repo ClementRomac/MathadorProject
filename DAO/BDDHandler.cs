@@ -17,27 +17,124 @@ namespace DAO
             m_dbConnection = new SQLiteConnection("Data Source=matador.sql;Version=3;");
             m_dbConnection.Open();
 
-            string sql = "CREATE TABLE DrawList(id INTEGER PRIMARY KEY AUTOINCREMENT, id_game INTEGER REFERENCES Game(id), operand1 INTEGER, operand2 INTEGER, operand3 INTEGER, operand4 INTEGER, operand5 INTEGER, result INTEGER); CREATE TABLE Game(id INTEGER PRIMARY KEY AUTOINCREMENT, end DATETIME, begin DATETIME, id_gamer INTEGER REFERENCES Gamer(id)); CREATE TABLE Gamer(id INTEGER PRIMARY KEY AUTOINCREMENT, pseudo TEXT); CREATE TABLE Solution(id INTEGER PRIMARY KEY AUTOINCREMENT, id_draw INTEGER REFERENCES DrawList(id), solution TEXT); CREATE TABLE Stroke(id INTEGER PRIMARY KEY AUTOINCREMENT, id_draw INTEGER REFERENCES DrawList(id), operand1 INTEGER, operator CHAR, operand2 INTEGER)";
+            string sql = "CREATE TABLE DrawList(id INTEGER PRIMARY KEY AUTOINCREMENT, id_game INTEGER REFERENCES Game(id), operand1 INTEGER, operand2 INTEGER, operand3 INTEGER, operand4 INTEGER, operand5 INTEGER, result INTEGER); CREATE TABLE Game(id INTEGER PRIMARY KEY AUTOINCREMENT, end DATETIME, begin DATETIME, game_type INTEGER, id_gamer INTEGER REFERENCES Gamer(id)); CREATE TABLE Gamer(id INTEGER PRIMARY KEY AUTOINCREMENT, pseudo TEXT); CREATE TABLE Solution(id INTEGER PRIMARY KEY AUTOINCREMENT, id_draw INTEGER REFERENCES DrawList(id), solution TEXT); CREATE TABLE Stroke(id INTEGER PRIMARY KEY AUTOINCREMENT, id_draw INTEGER REFERENCES DrawList(id), operand1 INTEGER, operator CHAR, operand2 INTEGER)";
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             command.ExecuteNonQuery();
         }
 
-        public void WriteGame(Game game, string TypeOfInsert)
+        //Todo :
+        public void WriteGame (Game game)
+        {
+            InsertIntoGamer(game.Pseudo);
+            int id_gamer = SelectIdGamer();
+
+            InsertIntoGame(game.FinishTime, game.BeginTime, id_gamer, (int)game.gameType);
+            int id_game = SelectIdGame();
+
+            foreach( DrawResolution drawresolution in game.Historical)
+            {
+                Draw currentDraw = drawresolution.Draw;
+                InsertIntoDrawList(id_game,
+                    currentDraw.Numbers[0],
+                    currentDraw.Numbers[1],
+                    currentDraw.Numbers[2],
+                    currentDraw.Numbers[3],
+                    currentDraw.Numbers[4],
+                    currentDraw.Goal
+                    );
+                int idCurrentDraw = SelectIddrawList();
+                foreach(Stroke stroke in drawresolution.Strokes)
+                {
+                    InsertIntoStroke(idCurrentDraw, stroke.FirstOperand, stroke.Operator.ToReadableChar(), stroke.SecondOperand);
+            
+                }
+                
+            }
+            //insert into all 
+        }
+
+        public List<Game> GetAllGames()
+        {
+            List<List<string>> allGamer = new List<List<string>>();
+            List<List<string>> allGame = new List<List<string>>();
+            List<List<int>> allDraw = new List<List<int>>();
+            List<List<string>> allStroke = new List<List<string>>();
+            List<Game> getAllData = new List<Game>();
+            
+            allGamer = SelectAllGamer();
+            foreach(List<string> gamer in allGamer)//Pour chaque user
+            {
+                allGame = SelectAllGame(gamer[0]);// pour chaque jeu de chaque user
+                foreach(List<string> game in allGame)// pour chaque Draw de chaque jeu  de chaque user
+                {
+                    allDraw = SelectAllDrawResolution(game[0]);
+                    Game tmpGame = new Game(gamer[1], (GameType)Convert.ToInt32(game[5]));
+                    foreach (List<int> draw in allDraw)//pour tous les strokes  pour chaque Draw de chaque jeu  de chaque user
+                    {
+                        allStroke = SelectAllStroke(draw[0]);
+                        //Création object temporaire que l'on ajoute dans la liste
+                        Draw tmpDraw = new Draw(draw.GetRange(1 ,5), draw[7]  );
+                        tmpGame.AddDrawResolution(tmpDraw);
+                        foreach (List<string> stroke in allStroke)
+                        {
+                            Stroke tmpStroke = new Stroke(
+                                Convert.ToInt32(stroke[2]) ,
+                                Convert.ToInt32(stroke[4]),
+                                stroke[3][0]
+                                );
+                            tmpGame.AddStroke(tmpStroke);
+                        }
+                    }
+                    getAllData.Add(tmpGame);
+                }
+            }
+            return getAllData;
+        }
+
+        public void InsertIntoGame(DateTime endDate, DateTime beginDate, int idGamer, int type_game)
         {
             SQLiteConnection m_dbConnection;
             m_dbConnection = new SQLiteConnection("Data Source=matador.sql;Version=3;");
             m_dbConnection.Open();
-
-            //TypeOfInsert = WhichCommandInsert(TypeOfInsert);
-            
+            string sql = "INSERT INTO Game (end, begin, id_gamer, game_type) VALUES (\"" + endDate + "\", \"" + beginDate + "\", " + idGamer + " , " + type_game + ");";
+            SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+            command.ExecuteNonQuery();
         }
 
-        public List<string> WhichCommandInsert(string TypeOfInsert)
+        public int SelectIdGame()
         {
-            List<string> CommandInsert = new List<string>();
-            string sql = "insert into highscores (name, score) values ('Me', 9001)";
-            CommandInsert.Add(sql);
-            return CommandInsert;
+            int idGamer = SelectIdGame();
+            SQLiteConnection m_dbConnection;
+            m_dbConnection = new SQLiteConnection("Data Source=matador.sql;Version=3;");
+            m_dbConnection.Open();
+            string sql = "SELECT id FROM game  ORDER BY id DESC;";
+            SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                return Convert.ToInt32(reader["id"].ToString());
+            }
+            return 0; //pas de résultat
+        }
+
+        public List<List<string>> SelectAllGamer()
+        {
+            List<List<string>> allGamer = new List<List<string>>();
+            SQLiteConnection m_dbConnection;
+            m_dbConnection = new SQLiteConnection("Data Source=matador.sql;Version=3;");
+            m_dbConnection.Open();
+            string sql = "SELECT * FROM gamer;";
+            SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                List<string> tmp = new List<string>();
+                tmp.AddRange(new string[2] { reader["id"].ToString(), reader["pseudo"].ToString() });
+                allGamer.Add(tmp);
+
+                //return Convert.ToInt32(reader["id"].ToString());
+            }
+            return allGamer;
         }
 
         public void InsertIntoGamer(string pseudo)
@@ -50,12 +147,12 @@ namespace DAO
             command.ExecuteNonQuery();
         }
 
-        public int SelectIdGamer(string pseudo)
+        public int SelectIdGamer()
         {
             SQLiteConnection m_dbConnection;
             m_dbConnection = new SQLiteConnection("Data Source=matador.sql;Version=3;");
             m_dbConnection.Open();
-            string sql = "SELECT id FROM gamer where pseudo =\"" + pseudo + "\";";
+            string sql = "SELECT id FROM gamer ORDER BY id DESC";
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             SQLiteDataReader reader = command.ExecuteReader();
             while (reader.Read())
@@ -65,32 +162,30 @@ namespace DAO
             return 0; //pas de résultat
         }
 
-        public void InsertIntoGame(DateTime endDate, DateTime beginDate, int idGamer)
+        public List<List<string>> SelectAllGame(string id_gamer)
         {
+            List<List<string>> allGame = new List<List<string>>();
             SQLiteConnection m_dbConnection;
             m_dbConnection = new SQLiteConnection("Data Source=matador.sql;Version=3;");
             m_dbConnection.Open();
-            string sql = "INSERT INTO Game (end, begin, id_gamer) VALUES (\"" + endDate + "\", \"" + beginDate+ "\", " + idGamer + ");";
-            SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
-            command.ExecuteNonQuery();
-        }
-
-        public int SelectIdGame(string pseudo)
-        {
-            int idGamer = SelectIdGame(pseudo);
-            SQLiteConnection m_dbConnection;
-            m_dbConnection = new SQLiteConnection("Data Source=matador.sql;Version=3;");
-            m_dbConnection.Open();
-            string sql = "SELECT id FROM game where id_gamer =\"" + idGamer + "\";";
+            string sql = "SELECT * FROM gamer WHERE id_gamer = " +Convert.ToInt32(id_gamer) +";";
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             SQLiteDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                return Convert.ToInt32(reader["id"].ToString());
-            }
-            return 0; //pas de résultat
-        }
+                List<string> tmp = new List<string>();
+                tmp.AddRange(new string[6] { reader["id"].ToString(),
+                    reader["end"].ToString(),
+                    reader["begin"].ToString(),
+                    reader["game_type"].ToString(),
+                    reader["id_gamer"].ToString(),
+                    reader["game_type"].ToString(),});
+                allGame.Add(tmp);
 
+                //return Convert.ToInt32(reader["id"].ToString());
+            }
+            return allGame;
+        }
 
         public void InsertIntoSolution( string solution, int idDraw)
         {
@@ -102,9 +197,9 @@ namespace DAO
             command.ExecuteNonQuery();
         }
 
+
         public string SelectSolutionByIdDraw(string id_draw)
         {
-            int idGamer = SelectIdGame(id_draw);
             SQLiteConnection m_dbConnection;
             m_dbConnection = new SQLiteConnection("Data Source=matador.sql;Version=3;");
             m_dbConnection.Open();
@@ -128,19 +223,46 @@ namespace DAO
             command.ExecuteNonQuery();
         }
 
-        public int SelectDrawListIdGame(int operand1, int operand2, int operand3, int operand4, int operand5, int result)
+        public int SelectIddrawList()
         {
             SQLiteConnection m_dbConnection;
             m_dbConnection = new SQLiteConnection("Data Source=matador.sql;Version=3;");
             m_dbConnection.Open();
-            string sql = "SELECT id_game FROM drawlist where operand1 =" + operand1 + " AND operand2 =" + operand2 + " AND operand3 =" + operand3 + " AND operand4 =" + operand4 + " AND operand5 =" + operand5 + " AND result =" + result + " ;";
+            string sql = "SELECT id FROM drawlist ORDER BY id DESC;";
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             SQLiteDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                return Convert.ToInt32(reader["id_game"].ToString());
+                return Convert.ToInt32(reader["id"].ToString());
             }
             return 0; //pas de résultat
+        }
+
+        public List<List<int>> SelectAllDrawResolution(string id_game)
+        {
+            List<List<int>> allDraw = new List<List<int>>();
+            SQLiteConnection m_dbConnection;
+            m_dbConnection = new SQLiteConnection("Data Source=matador.sql;Version=3;");
+            m_dbConnection.Open();
+            string sql = "SELECT * FROM drawresolution WHERE id_game = " + Convert.ToInt32(id_game) + ";";
+            SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                List<int> tmp = new List<int>();
+                tmp.AddRange(new int[8] { Convert.ToInt32(reader["id"]),
+                    Convert.ToInt32(reader["id_game"]),
+                    Convert.ToInt32(reader["operand1"]),
+                    Convert.ToInt32(reader["operand2"]),
+                    Convert.ToInt32(reader["operand3"]),
+                    Convert.ToInt32(reader["operand4"]),
+                    Convert.ToInt32(reader["operand5"]),
+                    Convert.ToInt32(reader["result"]) });
+                allDraw.Add(tmp);
+
+                //return Convert.ToInt32(reader["id"].ToString());
+            }
+            return allDraw;
         }
 
         public void InsertIntoStroke(int idDraw, int operand1, char operator1, int operand2)
@@ -153,6 +275,29 @@ namespace DAO
             command.ExecuteNonQuery();
         }
 
+        public List<List<string>> SelectAllStroke(int id_draw)
+        {
+            List<List<string>> allStroke = new List<List<string>>();
+            SQLiteConnection m_dbConnection;
+            m_dbConnection = new SQLiteConnection("Data Source=matador.sql;Version=3;");
+            m_dbConnection.Open();
+            string sql = "SELECT * FROM Stroke WHERE id_draw = " + Convert.ToInt32(id_draw) + ";";
+            SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
+            SQLiteDataReader reader = command.ExecuteReader();
+            while (reader.Read())
+            {
+                List<string> tmp = new List<string>();
+                tmp.AddRange(new string[5] { reader["id"].ToString(),
+                    reader["id_draw"].ToString(),
+                    reader["operand1"].ToString(),
+                    reader["operator"].ToString(),
+                    reader["operand2"].ToString() });
+                allStroke.Add(tmp);
+
+                //return Convert.ToInt32(reader["id"].ToString());
+            }
+            return allStroke;
+        }
 
     }
 }
