@@ -32,7 +32,7 @@ namespace GameInterface
             this.pseudo = pseudo;
             this.gameType = gameType;
             homePseudoLabel.Text = "Pseudo : " + pseudo;
-            game = new Game(pseudo);
+            game = new Game(pseudo, gameType);
             this.drawList = drawList;
             SetTimer();
 

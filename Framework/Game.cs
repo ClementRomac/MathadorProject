@@ -9,11 +9,13 @@ namespace Framework
         private DrawResolution currentDrawResolution;
         public DateTime BeginTime;
         public DateTime FinishTime;
+        public GameType gameType { get; private set; }
         public string Pseudo { get; private set; }
-        public Game(string pseudo)
+        public Game(string pseudo, GameType gameType)
         {
             Historical = new List<DrawResolution>();
             Pseudo = pseudo;
+            this.gameType = gameType;
         }
 
         public void AddDrawResolution(Draw draw)

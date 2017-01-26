@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GameInterface
+namespace Framework
 {
-    internal enum GameType
+    public enum GameType
     {
         Fastest = 1,
         AgainstTime = 2
