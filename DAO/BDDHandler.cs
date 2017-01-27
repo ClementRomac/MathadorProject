@@ -5,11 +5,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.SQLite;
 using Framework;
+using System.IO;
 
 namespace DAO
 {
     public class BDDHandler
     {
+        public BDDHandler()
+        {
+            if (!File.Exists("matador.sql"))
+            {
+                CreateFile();
+            }
+        }
         public void CreateFile()
         {
             SQLiteConnection.CreateFile("matador.sql");
@@ -98,7 +106,11 @@ namespace DAO
             m_dbConnection.Open();
             string sql = "INSERT INTO Game (end, begin, id_gamer, game_type) VALUES (\"" + endDate + "\", \"" + beginDate + "\", " + idGamer + " , " + type_game + ");";
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
-            command.ExecuteNonQuery();
+            try
+            {
+                command.ExecuteNonQuery();
+            }
+            catch(Exception ex) { }
         }
 
         public int SelectIdGame()

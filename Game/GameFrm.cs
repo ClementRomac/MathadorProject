@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -13,6 +14,8 @@ namespace GameInterface
     {
         private List<Draw> drawList;
         private int currentDraw;
+
+        private List<List<DrawResolution>> solutionsOfDraws;
 
         private Game game;
         private string pseudo;
@@ -29,6 +32,7 @@ namespace GameInterface
         {
             InitializeComponent();
             currentDraw = 0;
+            solutionsOfDraws = new List<List<DrawResolution>>();
             this.pseudo = pseudo;
             this.gameType = gameType;
             homePseudoLabel.Text = "Pseudo : " + pseudo;
@@ -44,6 +48,7 @@ namespace GameInterface
             if(currentDraw < drawList.Count)
             {
                 game.AddDrawResolution(drawList[currentDraw]);
+                //Task.Factory.StartNew(() => GetDrawSolutions());
                 number1.Text = drawList[currentDraw].Numbers[0].ToString();
                 number2.Text = drawList[currentDraw].Numbers[1].ToString();
                 number3.Text = drawList[currentDraw].Numbers[2].ToString();
@@ -59,6 +64,12 @@ namespace GameInterface
                 FinishGame();
             }
             
+        }
+
+        private void GetDrawSolutions()
+        {
+            List<DrawResolution> currentDrawSolutions = Solver.DrawSolver.GetSolutions(drawList[currentDraw]);
+            solutionsOfDraws.Add(currentDrawSolutions);
         }
 
         private void OnOperatorButtonChecked(object sender, EventArgs e)
@@ -239,7 +250,7 @@ namespace GameInterface
             game.FinishTime = DateTime.Now;
             ((Timer)timer).Stop();
             this.timeLabel.ForeColor = Color.Red;
-            //TODO: Insertion BDD
+            SaveResultsInBDD();
 
             if (MessageBox.Show("Partie terminée !", "Bravo !", MessageBoxButtons.OK) == DialogResult.OK)
             {
@@ -248,6 +259,13 @@ namespace GameInterface
                 homeFrm.ShowDialog();
                 this.Close();
             }
+        }
+
+        private void SaveResultsInBDD()
+        {
+            DAO.BDDHandler bdd = new DAO.BDDHandler();
+
+            bdd.WriteGame(game);
         }
     }
 }
