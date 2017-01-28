@@ -56,7 +56,12 @@ namespace Framework
 
         public override string ToString()
         {
-            return FirstOperand.ToString() + " " + Operator.ToReadableChar() + " " + SecondOperand.ToString();
+            return "Coup : " +
+                FirstOperand.ToString() + " " +
+                Operator.ToReadableChar() + " " +
+                SecondOperand.ToString() + " = " +
+                Result.ToString() + " - Points : " +
+                GetPoints().ToString(); ;
         }
     }
 }

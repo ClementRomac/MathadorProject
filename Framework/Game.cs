@@ -6,8 +6,11 @@ namespace Framework
     public class Game
     {
         public List<DrawResolution> Historical { get; private set; }
+
         private DrawResolution currentDrawResolution;
+
         public DateTime BeginTime;
+
         public DateTime FinishTime;
         public GameType gameType { get; private set; }
         public string Pseudo { get; private set; }
@@ -48,6 +51,19 @@ namespace Framework
             Historical.ForEach(d => points += d.GetCurrentPoints());
 
             return points;
+        }
+
+        public string GetTimeOfGame()
+        {
+            switch (gameType)
+            {
+                case GameType.AgainstTime:
+                    return (new DateTime().AddMinutes(3) - (FinishTime - BeginTime)).ToString("mm\\:ss");
+                case GameType.Fastest:
+                    return (FinishTime - BeginTime).ToString("mm\\:ss");
+                default:
+                    return (FinishTime - BeginTime).ToString("mm\\:ss");
+            }
         }
     }
 }

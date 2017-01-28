@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ScoreDetailsForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ScoreDetailsForm.Designer.cs">
+      <DependentUpon>ScoreDetailsForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="ScoresFrm.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +78,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="ScoreDetailsForm.resx">
+      <DependentUpon>ScoreDetailsForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ScoresFrm.resx">
       <DependentUpon>ScoresFrm.cs</DependentUpon>
     </EmbeddedResource>
@@ -111,6 +120,7 @@
     <Content Include="Resources\background.png" />
     <Content Include="Resources\connection_button.png" />
     <Content Include="Resources\logo_mathador.ico" />
+    <Content Include="Resources\return_button.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DAO\DAO.csproj">

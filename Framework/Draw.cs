@@ -17,5 +17,16 @@ namespace Framework
             Numbers = numbers;
             Goal = goal;
         }
+
+        public override string ToString()
+        {
+            return "Tirage : " + 
+                Numbers[0].ToString() + ", " +
+                Numbers[1].ToString() + ", " +
+                Numbers[2].ToString() + ", " +
+                Numbers[3].ToString() + ", " +
+                Numbers[4].ToString() + " - Objectif : " +
+                Goal.ToString();
+        }
     }
 }

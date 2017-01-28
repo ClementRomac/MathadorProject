@@ -194,7 +194,7 @@ namespace DAO
             SQLiteConnection m_dbConnection;
             m_dbConnection = new SQLiteConnection("Data Source=matador.sql;Version=3;");
             m_dbConnection.Open();
-            string sql = "SELECT * FROM gamer WHERE id_gamer = " +Convert.ToInt32(id_gamer) +";";
+            string sql = "SELECT * FROM gamer WHERE id = " +Convert.ToInt32(id_gamer) +";";
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             SQLiteDataReader reader = command.ExecuteReader();
             while (reader.Read())
