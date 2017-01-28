@@ -104,18 +104,20 @@ namespace DAO
             SQLiteConnection m_dbConnection;
             m_dbConnection = new SQLiteConnection("Data Source=matador.sql;Version=3;");
             m_dbConnection.Open();
-            string sql = "INSERT INTO Game (end, begin, id_gamer, game_type) VALUES (\"" + endDate + "\", \"" + beginDate + "\", " + idGamer + " , " + type_game + ");";
+            string sql = "INSERT INTO Game (end, begin, game_type, id_gamer) VALUES (\"" + endDate + "\", \"" + beginDate + "\", " + type_game + " , " + idGamer + ");";
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             try
             {
                 command.ExecuteNonQuery();
+                m_dbConnection.Close();
+                SQLiteConnection.ClearAllPools();
             }
             catch(Exception ex) { }
         }
 
         public int SelectIdGame()
         {
-            int idGamer = SelectIdGame();
+            int result = 0;
             SQLiteConnection m_dbConnection;
             m_dbConnection = new SQLiteConnection("Data Source=matador.sql;Version=3;");
             m_dbConnection.Open();
@@ -124,9 +126,11 @@ namespace DAO
             SQLiteDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                return Convert.ToInt32(reader["id"].ToString());
+                result= Convert.ToInt32(reader["id"].ToString());
             }
-            return 0; //pas de résultat
+            m_dbConnection.Close();
+            SQLiteConnection.ClearAllPools();
+            return result; //pas de résultat
         }
 
         public List<List<string>> SelectAllGamer()
@@ -146,6 +150,9 @@ namespace DAO
 
                 //return Convert.ToInt32(reader["id"].ToString());
             }
+
+            m_dbConnection.Close();
+            SQLiteConnection.ClearAllPools();
             return allGamer;
         }
 
@@ -157,10 +164,15 @@ namespace DAO
             string sql = "INSERT INTO Gamer (pseudo) VALUES (\"" + pseudo +"\");";
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             command.ExecuteNonQuery();
+            m_dbConnection.Close();
+            SQLiteConnection.ClearAllPools();
+            m_dbConnection.Close();
+            SQLiteConnection.ClearAllPools();
         }
 
         public int SelectIdGamer()
         {
+            int result = 0;
             SQLiteConnection m_dbConnection;
             m_dbConnection = new SQLiteConnection("Data Source=matador.sql;Version=3;");
             m_dbConnection.Open();
@@ -169,9 +181,11 @@ namespace DAO
             SQLiteDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                return Convert.ToInt32(reader["id"].ToString());
+                result =  Convert.ToInt32(reader["id"].ToString());
             }
-            return 0; //pas de résultat
+            m_dbConnection.Close();
+            SQLiteConnection.ClearAllPools();
+            return result; //pas de résultat
         }
 
         public List<List<string>> SelectAllGame(string id_gamer)
@@ -196,6 +210,9 @@ namespace DAO
 
                 //return Convert.ToInt32(reader["id"].ToString());
             }
+
+            m_dbConnection.Close();
+            SQLiteConnection.ClearAllPools();
             return allGame;
         }
 
@@ -207,11 +224,14 @@ namespace DAO
             string sql = "INSERT INTO Solution (id_draw, solution) VALUES (\"" + solution + "\", "  + idDraw + ");";
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             command.ExecuteNonQuery();
+            m_dbConnection.Close();
+            SQLiteConnection.ClearAllPools();
         }
 
 
         public string SelectSolutionByIdDraw(string id_draw)
         {
+            string result = "";
             SQLiteConnection m_dbConnection;
             m_dbConnection = new SQLiteConnection("Data Source=matador.sql;Version=3;");
             m_dbConnection.Open();
@@ -220,9 +240,12 @@ namespace DAO
             SQLiteDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                return reader["solution"].ToString();
+                result =  reader["solution"].ToString();
             }
-            return ""; //pas de résultat
+
+            m_dbConnection.Close();
+            SQLiteConnection.ClearAllPools();
+            return result; //pas de résultat
         }
 
         public void InsertIntoDrawList(int idGame, int operand1, int operand2, int operand3, int operand4, int operand5, int result)
@@ -233,10 +256,14 @@ namespace DAO
             string sql = "INSERT INTO DrawList (id_game, operand1, operand2,operand3,operand4,operand5,result) VALUES (" + idGame + ", " + operand1 + ", " + operand2 + ", " + operand3 + ", " + operand4 + ", " + operand5 + ", " + result + ");";
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             command.ExecuteNonQuery();
+            m_dbConnection.Close();
+            SQLiteConnection.ClearAllPools();
+
         }
 
         public int SelectIddrawList()
         {
+            int result = 0;
             SQLiteConnection m_dbConnection;
             m_dbConnection = new SQLiteConnection("Data Source=matador.sql;Version=3;");
             m_dbConnection.Open();
@@ -245,9 +272,12 @@ namespace DAO
             SQLiteDataReader reader = command.ExecuteReader();
             while (reader.Read())
             {
-                return Convert.ToInt32(reader["id"].ToString());
+                result =  Convert.ToInt32(reader["id"].ToString());
             }
-            return 0; //pas de résultat
+
+            m_dbConnection.Close();
+            SQLiteConnection.ClearAllPools();
+            return result; //pas de résultat
         }
 
         public List<List<int>> SelectAllDrawResolution(string id_game)
@@ -274,6 +304,9 @@ namespace DAO
 
                 //return Convert.ToInt32(reader["id"].ToString());
             }
+
+            m_dbConnection.Close();
+            SQLiteConnection.ClearAllPools();
             return allDraw;
         }
 
@@ -285,6 +318,8 @@ namespace DAO
             string sql = "INSERT INTO Stroke (id_draw,operand1,operator,operand2) VALUES (\"" + idDraw + "\", \"" + operand1 + "\", \"" + operator1 + "\", \"" + operand2 + "\");";
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             command.ExecuteNonQuery();
+            m_dbConnection.Close();
+            SQLiteConnection.ClearAllPools();
         }
 
         public List<List<string>> SelectAllStroke(int id_draw)
@@ -308,6 +343,9 @@ namespace DAO
 
                 //return Convert.ToInt32(reader["id"].ToString());
             }
+
+            m_dbConnection.Close();
+            SQLiteConnection.ClearAllPools();
             return allStroke;
         }
 
