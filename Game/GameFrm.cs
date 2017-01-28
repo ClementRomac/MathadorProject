@@ -136,10 +136,11 @@ namespace GameInterface
                                 Convert.ToInt32(operand2.Text),
                                 operatorRadioButton.Text[0]
                                 );
+                    int result = currentStroke.Result;
                     game.AddStroke(currentStroke);
                     operand1.Enabled = false;
                     operand1.Checked = false;
-                    operand2.Text = currentStroke.Result.ToString();
+                    operand2.Text = result.ToString();
                     SetHistoricalAndPoints(currentStroke);
 
                     if (game.IsCurrentDrawResolutionFinished())
@@ -265,8 +266,12 @@ namespace GameInterface
         private void SaveResultsInBDD()
         {
             DAO.BDDHandler bdd = new DAO.BDDHandler();
-
-            bdd.WriteGame(game);
+            try
+            {
+                bdd.WriteGame(game);
+            }
+            catch(Exception ex) { }
+           
         }
     }
 }
