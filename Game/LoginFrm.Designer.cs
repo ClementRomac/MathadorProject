@@ -57,10 +57,13 @@
             this.loginButton.BackColor = System.Drawing.Color.Transparent;
             this.loginButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("loginButton.BackgroundImage")));
             this.loginButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.loginButton.Location = new System.Drawing.Point(309, 216);
+            this.loginButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.loginButton.FlatAppearance.BorderSize = 0;
+            this.loginButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.loginButton.Location = new System.Drawing.Point(309, 220);
             this.loginButton.Name = "loginButton";
-            this.loginButton.Size = new System.Drawing.Size(177, 51);
-            this.loginButton.TabIndex = 2;
+            this.loginButton.Size = new System.Drawing.Size(177, 59);
+            this.loginButton.TabIndex = 5;
             this.loginButton.Text = "Entrer !";
             this.loginButton.UseVisualStyleBackColor = false;
             this.loginButton.Click += new System.EventHandler(this.loginButton_Click);

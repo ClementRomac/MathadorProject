@@ -123,6 +123,7 @@ namespace GameInterface
             this.backButton.BackColor = System.Drawing.Color.Transparent;
             this.backButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("backButton.BackgroundImage")));
             this.backButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.backButton.Cursor = System.Windows.Forms.Cursors.Hand;
             this.backButton.FlatAppearance.BorderSize = 0;
             this.backButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.backButton.Location = new System.Drawing.Point(12, 9);

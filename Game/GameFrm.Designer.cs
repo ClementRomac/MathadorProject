@@ -60,6 +60,9 @@ namespace GameInterface
             this.scoresButton.BackColor = System.Drawing.Color.Transparent;
             this.scoresButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("scoresButton.BackgroundImage")));
             this.scoresButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.scoresButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.scoresButton.FlatAppearance.BorderSize = 0;
+            this.scoresButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.scoresButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.scoresButton.Location = new System.Drawing.Point(295, 362);
             this.scoresButton.Name = "scoresButton";
@@ -285,6 +288,9 @@ namespace GameInterface
             this.nextButton.BackColor = System.Drawing.Color.Transparent;
             this.nextButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("nextButton.BackgroundImage")));
             this.nextButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.nextButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.nextButton.FlatAppearance.BorderSize = 0;
+            this.nextButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.nextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.nextButton.Location = new System.Drawing.Point(670, 394);
             this.nextButton.Name = "nextButton";

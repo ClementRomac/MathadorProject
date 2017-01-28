@@ -51,21 +51,29 @@
             // 
             // newGame1Button
             // 
+            this.newGame1Button.BackColor = System.Drawing.Color.Transparent;
             this.newGame1Button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("newGame1Button.BackgroundImage")));
             this.newGame1Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.newGame1Button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.newGame1Button.FlatAppearance.BorderSize = 0;
+            this.newGame1Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.newGame1Button.Location = new System.Drawing.Point(231, 71);
             this.newGame1Button.Name = "newGame1Button";
             this.newGame1Button.Size = new System.Drawing.Size(339, 51);
             this.newGame1Button.TabIndex = 2;
             this.newGame1Button.Text = "Contre la montre";
             this.gameInfosToolTip.SetToolTip(this.newGame1Button, resources.GetString("newGame1Button.ToolTip"));
-            this.newGame1Button.UseVisualStyleBackColor = true;
+            this.newGame1Button.UseVisualStyleBackColor = false;
             this.newGame1Button.Click += new System.EventHandler(this.Game1_Click);
             // 
             // newGame2Button
             // 
+            this.newGame2Button.BackColor = System.Drawing.Color.Transparent;
             this.newGame2Button.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("newGame2Button.BackgroundImage")));
             this.newGame2Button.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.newGame2Button.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.newGame2Button.FlatAppearance.BorderSize = 0;
+            this.newGame2Button.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.newGame2Button.Location = new System.Drawing.Point(231, 148);
             this.newGame2Button.Name = "newGame2Button";
             this.newGame2Button.Size = new System.Drawing.Size(339, 51);
@@ -73,22 +81,26 @@
             this.newGame2Button.Text = "Rapidité";
             this.gameInfosToolTip.SetToolTip(this.newGame2Button, "Dans ce mode de jeu, vous devez résoudre un jeu de tirages le plus rapidement pos" +
         "sible. \r\nLa partie se termine une fois tous les tirages passés.");
-            this.newGame2Button.UseVisualStyleBackColor = true;
+            this.newGame2Button.UseVisualStyleBackColor = false;
             this.newGame2Button.Click += new System.EventHandler(this.Game2_Click);
             // 
             // scoresButton
             // 
+            this.scoresButton.BackColor = System.Drawing.Color.Transparent;
             this.scoresButton.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("scoresButton.BackgroundImage")));
             this.scoresButton.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.scoresButton.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.scoresButton.FlatAppearance.BorderSize = 0;
+            this.scoresButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.scoresButton.Location = new System.Drawing.Point(231, 355);
             this.scoresButton.Name = "scoresButton";
             this.scoresButton.Size = new System.Drawing.Size(339, 51);
             this.scoresButton.TabIndex = 4;
             this.scoresButton.Text = "Scores";
-            this.scoresButton.UseVisualStyleBackColor = true;
+            this.scoresButton.UseVisualStyleBackColor = false;
             this.scoresButton.Click += new System.EventHandler(this.scoresButton_Click);
             // 
-            // slectDrawFileDialog
+            // selectDrawFileDialog
             // 
             this.selectDrawFileDialog.FileName = "drawFile";
             // 

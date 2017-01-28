@@ -255,7 +255,7 @@ namespace GameInterface
             if (MessageBox.Show("Partie terminée !", "Bravo !", MessageBoxButtons.OK) == DialogResult.OK)
             {
                 //HomeFrm homeFrm = new HomeFrm(pseudo);
-                ScoresFrm homeFrm = new ScoresFrm(new List<Game>() { game });
+                ScoresFrm homeFrm = new ScoresFrm(new List<Game>() { game }, pseudo);
                 this.Hide();
                 homeFrm.ShowDialog();
                 this.Close();
