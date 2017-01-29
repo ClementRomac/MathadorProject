@@ -14,14 +14,14 @@ namespace TestBddConsole
             DAO.BDDHandler test = new DAO.BDDHandler();
             if (!File.Exists("../../../Game/bin/Debug/matador.sql"))
             {
-                test.CreateFile();
+                test.CreateBDDFile();
             }
 
             //Test insert
             // test.InsertIntoGamer("test");
             test.InsertIntoGamer("test");
             test.InsertIntoGamer("test2");
-            test.SelectAllGamer();
+            test.SelectAllGamers();
             test.InsertIntoGame(DateTime.Now.AddMinutes(1), DateTime.Now ,1, 2);
             //test.InsertIntoStroke(1, 4, '+' , 2);
             //test.InsertIntoSolution(" 4+5/8-9*9", 1);
