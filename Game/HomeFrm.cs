@@ -50,10 +50,10 @@ namespace GameInterface
 
         private void scoresButton_Click(object sender, EventArgs e)
         {
-            //ScoresFrm scoresFrm = new ScoresFrm();
-            //Hide();
-            //scoresFrm.ShowDialog();
-            //Close();
+            ScoresFrm scoresFrm = new ScoresFrm(pseudo);
+            Hide();
+            scoresFrm.ShowDialog();
+            Close();
         }
     }
 }

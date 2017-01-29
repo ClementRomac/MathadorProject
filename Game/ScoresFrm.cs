@@ -15,13 +15,12 @@ namespace GameInterface
     {
         private List<Game> historical;
         private string pseudo;
-        public ScoresFrm(List<Game> historical, string pseudo)
+        public ScoresFrm(string pseudo)
         {
             InitializeComponent();
             this.pseudo = pseudo;
             DAO.BDDHandler bdd = new DAO.BDDHandler();
-            //historical = bdd.GetAllGames();
-            this.historical = historical;
+            historical = bdd.GetAllGames();
             foreach (Game game in historical)
             {
                 ListViewItem currentLvItem = new ListViewItem(

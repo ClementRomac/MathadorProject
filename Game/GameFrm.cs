@@ -251,12 +251,11 @@ namespace GameInterface
             game.FinishTime = DateTime.Now;
             ((Timer)timer).Stop();
             this.timeLabel.ForeColor = Color.Red;
-            //SaveResultsInBDD();
+            SaveResultsInBDD();
 
             if (MessageBox.Show("Partie terminée !", "Bravo !", MessageBoxButtons.OK) == DialogResult.OK)
             {
-                //HomeFrm homeFrm = new HomeFrm(pseudo);
-                ScoresFrm homeFrm = new ScoresFrm(new List<Game>() { game }, pseudo);
+                HomeFrm homeFrm = new HomeFrm(pseudo);
                 this.Hide();
                 homeFrm.ShowDialog();
                 this.Close();
