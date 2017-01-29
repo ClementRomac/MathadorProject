@@ -21,7 +21,7 @@ namespace GameInterface
             foreach (DrawResolution drawResolution in game.Historical)
             {
                 TreeNode currentNode = new TreeNode(drawResolution.Draw.ToString() +
-                    " - Points : " + drawResolution.GetCurrentPoints().ToString());
+                    " - Points : " + drawResolution.SavedCurrentPoints.ToString());
                 foreach (Stroke stroke in drawResolution.Strokes)
                 {
                     currentNode.Nodes.Add(stroke.ToString());

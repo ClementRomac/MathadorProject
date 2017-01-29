@@ -56,9 +56,11 @@ namespace GameInterface
                 number5.Text = drawList[currentDraw].Numbers[4].ToString();
                 numbersPanel.Controls.OfType<CheckBox>().ToList().ForEach(b => b.Enabled = true);
                 numbersPanel.Controls.OfType<CheckBox>().ToList().ForEach(b => b.Show());
+                numbersPanel.Controls.OfType<CheckBox>().ToList().ForEach(b => b.Tag = null);
                 goalLabel.Text = drawList[currentDraw].Goal.ToString();
                 remainingDraws.Text = (drawList.Count - currentDraw - 1).ToString() + " Restants";
-                SetHistoricalAndPoints();           
+                SetHistorical();
+                this.totalPointsLabel.Text = "Points : " + game.GetTotalPoints();  
             }
             else
             {
@@ -138,11 +140,32 @@ namespace GameInterface
                                 operatorRadioButton.Text[0]
                                 );
                     int result = currentStroke.Result;
-                    game.AddStroke(currentStroke);
+                    if(operand1.Tag != null && operand1.Tag.GetType() == typeof(Stroke))
+                    {
+                        if(operand2.Tag != null && operand2.Tag.GetType() == typeof(Stroke))
+                        {
+                            game.AddStroke(currentStroke, (Stroke)operand1.Tag, (Stroke)operand2.Tag);
+                        }
+                        else
+                        {
+                            game.AddStroke(currentStroke, (Stroke)operand1.Tag);
+                        }
+                        
+                    }
+                    else if(operand2.Tag != null && operand2.Tag.GetType() == typeof(Stroke))
+                    {
+                        game.AddStroke(currentStroke, (Stroke)operand2.Tag);
+                    }
+                    else
+                    {
+                        game.AddStroke(currentStroke);
+                    }
+
                     operand1.Enabled = false;
                     operand1.Checked = false;
                     operand2.Text = result.ToString();
-                    SetHistoricalAndPoints(currentStroke);
+                    operand2.Tag = currentStroke;
+                    SetHistorical(currentStroke);
 
                     if (game.IsCurrentDrawResolutionFinished())
                     {
@@ -222,7 +245,7 @@ namespace GameInterface
             this.timeLabel.ForeColor = Color.Black;
         }
 
-        private void SetHistoricalAndPoints(Stroke stroke = null)
+        private void SetHistorical(Stroke stroke = null)
         {
             if(stroke != null)
             {
@@ -237,8 +260,6 @@ namespace GameInterface
                 historicLabel.Text = "Coups joués : \n";
             }
           
-            this.totalPointsLabel.Text = "Total : " + game.GetTotalPoints();
-            this.currentPointsLabel.Text = "Points : " + game.GetCurrentDrawResolutionPoints();
             operand1 = null;
             operand2 = null;
             operatorRadioButton = null;

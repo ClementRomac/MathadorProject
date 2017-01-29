@@ -34,7 +34,6 @@ namespace GameInterface
             this.scoresButton = new System.Windows.Forms.Button();
             this.homePseudoLabel = new System.Windows.Forms.Label();
             this.totalPointsLabel = new System.Windows.Forms.Label();
-            this.currentPointsLabel = new System.Windows.Forms.Label();
             this.timeLabel = new System.Windows.Forms.Label();
             this.goalLabel = new System.Windows.Forms.Label();
             this.numbersPanel = new System.Windows.Forms.Panel();
@@ -94,17 +93,6 @@ namespace GameInterface
             this.totalPointsLabel.Size = new System.Drawing.Size(0, 29);
             this.totalPointsLabel.TabIndex = 15;
             this.totalPointsLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
-            // currentPointsLabel
-            // 
-            this.currentPointsLabel.AutoSize = true;
-            this.currentPointsLabel.BackColor = System.Drawing.Color.Transparent;
-            this.currentPointsLabel.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.currentPointsLabel.Location = new System.Drawing.Point(646, 52);
-            this.currentPointsLabel.Name = "currentPointsLabel";
-            this.currentPointsLabel.Size = new System.Drawing.Size(0, 29);
-            this.currentPointsLabel.TabIndex = 17;
-            this.currentPointsLabel.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
             // timeLabel
             // 
@@ -333,7 +321,6 @@ namespace GameInterface
             this.Controls.Add(this.nextButton);
             this.Controls.Add(this.historicLabel);
             this.Controls.Add(this.goalLabel);
-            this.Controls.Add(this.currentPointsLabel);
             this.Controls.Add(this.timeLabel);
             this.Controls.Add(this.totalPointsLabel);
             this.Controls.Add(this.homePseudoLabel);
@@ -356,7 +343,6 @@ namespace GameInterface
         private System.Windows.Forms.Button scoresButton;
         private System.Windows.Forms.Label homePseudoLabel;
         private System.Windows.Forms.Label totalPointsLabel;
-        private System.Windows.Forms.Label currentPointsLabel;
         private System.Windows.Forms.Label timeLabel;
         private System.Windows.Forms.Label goalLabel;
         private System.Windows.Forms.Panel numbersPanel;

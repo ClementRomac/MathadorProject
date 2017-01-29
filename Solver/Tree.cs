@@ -22,14 +22,14 @@ namespace Solver
             return DrawResolution.IsGoalReached();
         }
 
-        public bool IsMathador()
-        {
-            return DrawResolution.GetCurrentPoints() == 13; //si nombre de points =13 alors il y a mathador
-        }
-
         public bool HasAnyStrokeReachedTheGoal()
         {
             return DrawResolution.HasAnyStrokeReachedTheGoal();
+        }
+
+        public bool IsMathador()
+        {
+            return DrawResolution.GetCurrentPoints() == 13; //si nombre de points =13 alors il y a mathador
         }
     }
     internal class Tree
@@ -111,7 +111,6 @@ namespace Solver
             catch (Exception e) { }
 
             this.draw = draw;
-
         }
         
     }

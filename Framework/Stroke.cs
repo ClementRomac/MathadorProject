@@ -60,8 +60,7 @@ namespace Framework
                 FirstOperand.ToString() + " " +
                 Operator.ToReadableChar() + " " +
                 SecondOperand.ToString() + " = " +
-                Result.ToString() + " - Points : " +
-                GetPoints().ToString(); ;
+                Result.ToString();
         }
     }
 }

@@ -27,16 +27,21 @@ namespace Framework
             Historical.Add(currentDrawResolution);
         }
 
-        public int GetCurrentDrawResolutionPoints()
+        public void SetCurrentDrawResolutionSavedPoints(int points)
         {
-            return currentDrawResolution.GetCurrentPoints();
+            currentDrawResolution.SavedCurrentPoints = points;
         }
+        //public int GetCurrentDrawResolutionPoints()
+        //{
+        //    currentDrawResolution.GetCurrentPoints();
+        //    return currentDrawResolution.SavedCurrentPoints;
+        //}
 
-        public void AddStroke(Stroke stroke)
+        public void AddStroke(Stroke stroke, Stroke fromStroke1 = null, Stroke fromStroke2 = null)
         {
             if (!currentDrawResolution.IsFinished())
             {
-                currentDrawResolution.AddStroke(stroke);
+                currentDrawResolution.AddStroke(stroke, fromStroke1 ,fromStroke2);
             }
         }
 
@@ -49,6 +54,14 @@ namespace Framework
         {
             int points = 0;
             Historical.ForEach(d => points += d.GetCurrentPoints());
+
+            return points;
+        }
+
+        public int GetSavedTotalPoints()
+        {
+            int points = 0;
+            Historical.ForEach(d => points += d.SavedCurrentPoints);
 
             return points;
         }

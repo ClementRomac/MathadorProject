@@ -30,8 +30,8 @@ namespace GameInterface
                         game.gameType.ToReadableString(),
                         game.GetTimeOfGame(),
                         game.Historical.Count.ToString(),
-                        game.GetTotalPoints().ToString(),
-                        game.Historical.Where(d => d.GetCurrentPoints() == 13).ToList().Count.ToString(),
+                        game.GetSavedTotalPoints().ToString(),
+                        game.Historical.Where(d => d.SavedCurrentPoints == 13).ToList().Count.ToString(),
                         game.Historical.Where(d => !d.IsGoalReached()).ToList().Count.ToString(),
                     });
                 scoresListView.Items.Add(currentLvItem);

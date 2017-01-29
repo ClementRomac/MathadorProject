@@ -22,7 +22,7 @@ namespace DAO
             m_dbConnection = new SQLiteConnection("Data Source=matador.sql;Version=3;");
             m_dbConnection.Open();
 
-            string sql = "CREATE TABLE DrawList(id INTEGER PRIMARY KEY AUTOINCREMENT, id_game INTEGER REFERENCES Game(id), operand1 INTEGER, operand2 INTEGER, operand3 INTEGER, operand4 INTEGER, operand5 INTEGER, result INTEGER); CREATE TABLE Game(id INTEGER PRIMARY KEY AUTOINCREMENT, end DATETIME, begin DATETIME, game_type INTEGER, id_gamer INTEGER REFERENCES Gamer(id)); CREATE TABLE Gamer(id INTEGER PRIMARY KEY AUTOINCREMENT, pseudo TEXT); CREATE TABLE Solution(id INTEGER PRIMARY KEY AUTOINCREMENT, id_draw INTEGER REFERENCES DrawList(id), solution TEXT); CREATE TABLE Stroke(id INTEGER PRIMARY KEY AUTOINCREMENT, id_draw INTEGER REFERENCES DrawList(id), operand1 INTEGER, operator CHAR, operand2 INTEGER)";
+            string sql = "CREATE TABLE DrawList(id INTEGER PRIMARY KEY AUTOINCREMENT, id_game INTEGER REFERENCES Game(id), operand1 INTEGER, operand2 INTEGER, operand3 INTEGER, operand4 INTEGER, operand5 INTEGER, result INTEGER, points INTEGER); CREATE TABLE Game(id INTEGER PRIMARY KEY AUTOINCREMENT, end DATETIME, begin DATETIME, game_type INTEGER, id_gamer INTEGER REFERENCES Gamer(id)); CREATE TABLE Gamer(id INTEGER PRIMARY KEY AUTOINCREMENT, pseudo TEXT); CREATE TABLE Solution(id INTEGER PRIMARY KEY AUTOINCREMENT, id_draw INTEGER REFERENCES DrawList(id), solution TEXT); CREATE TABLE Stroke(id INTEGER PRIMARY KEY AUTOINCREMENT, id_draw INTEGER REFERENCES DrawList(id), operand1 INTEGER, operator CHAR, operand2 INTEGER)";
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             command.ExecuteNonQuery();
         }
@@ -44,7 +44,8 @@ namespace DAO
                     currentDraw.Numbers[2],
                     currentDraw.Numbers[3],
                     currentDraw.Numbers[4],
-                    currentDraw.Goal
+                    currentDraw.Goal,
+                    drawresolution.SavedCurrentPoints
                 );
 
                 int idCurrentDraw = SelectLastDrawListId();
@@ -81,6 +82,7 @@ namespace DAO
                         //Création object temporaire que l'on ajoute dans la liste
                         Draw tmpDraw = new Draw(draw.GetRange(1 ,5), draw[7]  );
                         tmpGame.AddDrawResolution(tmpDraw);
+                        tmpGame.SetCurrentDrawResolutionSavedPoints(draw[8]);
                         foreach (List<string> stroke in allStrokes)
                         {
                             Stroke tmpStroke = new Stroke(
@@ -247,12 +249,12 @@ namespace DAO
             return result;
         }
 
-        public void InsertIntoDrawList(int idGame, int operand1, int operand2, int operand3, int operand4, int operand5, int result)
+        public void InsertIntoDrawList(int idGame, int operand1, int operand2, int operand3, int operand4, int operand5, int result, int points)
         {
             SQLiteConnection m_dbConnection;
             m_dbConnection = new SQLiteConnection("Data Source=matador.sql;Version=3;");
             m_dbConnection.Open();
-            string sql = "INSERT INTO DrawList (id_game, operand1, operand2,operand3,operand4,operand5,result) VALUES (" + idGame + ", " + operand1 + ", " + operand2 + ", " + operand3 + ", " + operand4 + ", " + operand5 + ", " + result + ");";
+            string sql = "INSERT INTO DrawList (id_game, operand1, operand2,operand3,operand4,operand5,result,points) VALUES (" + idGame + ", " + operand1 + ", " + operand2 + ", " + operand3 + ", " + operand4 + ", " + operand5 + ", " + result + ", " + points + ");";
             SQLiteCommand command = new SQLiteCommand(sql, m_dbConnection);
             command.ExecuteNonQuery();
             m_dbConnection.Close();
@@ -291,14 +293,15 @@ namespace DAO
             while (reader.Read())
             {
                 List<int> tmp = new List<int>();
-                tmp.AddRange(new int[8] { Convert.ToInt32(reader["id"]),
+                tmp.AddRange(new int[9] { Convert.ToInt32(reader["id"]),
                     Convert.ToInt32(reader["id_game"]),
                     Convert.ToInt32(reader["operand1"]),
                     Convert.ToInt32(reader["operand2"]),
                     Convert.ToInt32(reader["operand3"]),
                     Convert.ToInt32(reader["operand4"]),
                     Convert.ToInt32(reader["operand5"]),
-                    Convert.ToInt32(reader["result"])
+                    Convert.ToInt32(reader["result"]),
+                    Convert.ToInt32(reader["points"])
                 });
 
                 allDraws.Add(tmp);

@@ -37,7 +37,7 @@ namespace Solver
                 foreach (List<int> oneCaseOfSwappedOperators in swappedOperators)
                 {
                     Tree tree = new Tree(draw, oneCaseOfSwappedNumbers, oneCaseOfSwappedOperators);
-                    foreach (Branch result in tree.Combinaisons.Where(b => b.IsGoalReached()).ToList())//renvoie une liste de branches où le Goal est atteind
+                    foreach (Branch result in tree.Combinaisons.Where(b => b.HasAnyStrokeReachedTheGoal()).ToList())//renvoie une liste de branches où le Goal est atteind
                     {
                         solutionsOfDraw.Add(result.DrawResolution);
                     }
