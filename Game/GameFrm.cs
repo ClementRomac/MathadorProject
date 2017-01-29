@@ -57,7 +57,8 @@ namespace GameInterface
                 numbersPanel.Controls.OfType<CheckBox>().ToList().ForEach(b => b.Enabled = true);
                 numbersPanel.Controls.OfType<CheckBox>().ToList().ForEach(b => b.Show());
                 goalLabel.Text = drawList[currentDraw].Goal.ToString();
-                SetHistoricalAndPoints();               
+                remainingDraws.Text = (drawList.Count - currentDraw - 1).ToString() + " Restants";
+                SetHistoricalAndPoints();           
             }
             else
             {

@@ -51,6 +51,7 @@ namespace GameInterface
             this.historicLabel = new System.Windows.Forms.Label();
             this.nextButton = new System.Windows.Forms.Button();
             this.calculLabel = new System.Windows.Forms.Label();
+            this.remainingDraws = new System.Windows.Forms.Label();
             this.numbersPanel.SuspendLayout();
             this.operatorsPanel.SuspendLayout();
             this.SuspendLayout();
@@ -292,7 +293,7 @@ namespace GameInterface
             this.nextButton.FlatAppearance.BorderSize = 0;
             this.nextButton.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.nextButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nextButton.Location = new System.Drawing.Point(670, 394);
+            this.nextButton.Location = new System.Drawing.Point(670, 362);
             this.nextButton.Name = "nextButton";
             this.nextButton.Size = new System.Drawing.Size(115, 44);
             this.nextButton.TabIndex = 31;
@@ -309,6 +310,17 @@ namespace GameInterface
             this.calculLabel.TabIndex = 32;
             this.calculLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // remainingDraws
+            // 
+            this.remainingDraws.AutoSize = true;
+            this.remainingDraws.BackColor = System.Drawing.Color.Transparent;
+            this.remainingDraws.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.remainingDraws.Location = new System.Drawing.Point(666, 418);
+            this.remainingDraws.Name = "remainingDraws";
+            this.remainingDraws.Size = new System.Drawing.Size(0, 20);
+            this.remainingDraws.TabIndex = 33;
+            this.remainingDraws.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
             // GameFrm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -316,6 +328,7 @@ namespace GameInterface
             this.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("$this.BackgroundImage")));
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(797, 450);
+            this.Controls.Add(this.remainingDraws);
             this.Controls.Add(this.calculLabel);
             this.Controls.Add(this.nextButton);
             this.Controls.Add(this.historicLabel);
@@ -360,6 +373,7 @@ namespace GameInterface
         private System.Windows.Forms.Label historicLabel;
         private System.Windows.Forms.Button nextButton;
         private System.Windows.Forms.Label calculLabel;
+        private System.Windows.Forms.Label remainingDraws;
     }
 }
 
