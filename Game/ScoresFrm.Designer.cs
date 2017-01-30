@@ -71,7 +71,6 @@ namespace GameInterface
             this.scoresListView.Location = new System.Drawing.Point(12, 64);
             this.scoresListView.MultiSelect = false;
             this.scoresListView.Name = "scoresListView";
-            this.scoresListView.Scrollable = false;
             this.scoresListView.ShowGroups = false;
             this.scoresListView.Size = new System.Drawing.Size(773, 374);
             this.scoresListView.TabIndex = 1;

@@ -195,11 +195,10 @@ namespace GameInterface
         {
             timer = new Timer();
             timer.Interval = 1000; // tick each second
-            timer.Tick += new EventHandler(timer_Tick);
-            timer.Start();
+            timer.Tick += new EventHandler(timer_Tick);          
+            
             DateTime now = DateTime.Now;
-        
-            switch(gameType)
+            switch (gameType)
             {
                 case GameType.AgainstTime:
                     referentTime = now.AddMinutes(3);
@@ -211,7 +210,8 @@ namespace GameInterface
                     break;
             }
 
-            game.BeginTime = now;     
+            game.BeginTime = now;
+            timer.Start();
         }
 
         private void timer_Tick(object sender, EventArgs e)
@@ -273,6 +273,11 @@ namespace GameInterface
             game.FinishTime = DateTime.Now;
             ((Timer)timer).Stop();
             this.timeLabel.ForeColor = Color.Red;
+            for (int i = currentDraw + 1; i < drawList.Count; i++)
+            {
+                game.AddDrawResolution(drawList[i]);
+            }
+
             SaveResultsInBDD();
 
             if (MessageBox.Show("Partie terminée !", "Bravo !", MessageBoxButtons.OK) == DialogResult.OK)
